@@ -1,48 +1,44 @@
 var beat = document.querySelector("#theme");
 var crickets = document.querySelector("#crickets");
 
-
-
 var canvas = document.getElementById("theCanvas");
 var context = canvas.getContext("2d");
 
-var spriteObject =
-{
-sourceX: 0,
-sourceY: 0,
-sourceWidth: 0,
-sourceHeight: 0,
-width: 20,
-height: 20,
-x: 0,
-y: 0,
-vx: 0,
-vy: 0,
-scrubbing: 0,
+var spriteObject = {
+	sourceX: 0,
+	sourceY: 0,
+	sourceWidth: 0,
+	sourceHeight: 0,
+	width: 20,
+	height: 20,
+	x: 0,
+	y: 0,
+	vx: 0,
+	vy: 0,
+	scrubbing: 0,
+	accelerationX: 0, 
+	accelerationY: 0,
+	speed: 3, 
+	rotationSpeed: 0.3,
+	speedLimit: 5, 
+	friction: 0.96,
 
-  accelerationX: 0, 
-  accelerationY: 0,
-  speed: 3, 
-  rotationSpeed: 0.3,
-  speedLimit: 5, 
-  friction: 0.96,
-
-centerX: function()
-{
-return this.x + (this.width / 2);
-},
-centerY: function()
-{
-return this.y + (this.height / 2);
-},
-halfWidth: function()
-{
-return this.width / 2;
-},
-halfHeight: function()
-{
-return this.height / 2;
-}
+	centerX: function()
+	{
+	return this.x + (this.width / 2);
+	},
+	centerY: function()
+	{
+	return this.y + (this.height / 2);
+	},
+	halfWidth: function()
+	{
+	return this.width / 2;
+	},
+	halfHeight: function()
+	{
+	return this.height / 2;
+	}
 };
 
 var page = 1;
@@ -1217,8 +1213,6 @@ function update() {
 			context.fillText("WHAT DO YOU DO NEXT?",550,50);
 			context.fillText("Press Y to say the password.",550,200);
 			context.fillText("Press N to not say the password.",550,300);
-			//context.font = "70px verdana";
-			//context.fillText(timerValue,740,400);
 	
 			beat.play();
 			context.font = "70px verdana";
@@ -1240,6 +1234,7 @@ function update() {
 	}
 	
 	if (page === 10) {
+		
 		disableSpace = false;
 		context.font = "70px verdana";
 		context.fillText("\"BOB\"",140,230);
@@ -1247,286 +1242,237 @@ function update() {
 		context.fillText("PRESS SPACE TO ADVANCE",35,430);
 	}
 	
+	if (page === 11) {
 	
-	//PAGE 11 (APARTMENT)
+		disableSpace = true;
+		context.drawImage(apartmentImage,apartment.x,apartment.y,apartment.width,apartment.height);
 	
-	if(page === 11)
-	{
-	disableSpace = true;
-	context.drawImage(apartmentImage,apartment.x,apartment.y,apartment.width,apartment.height);
+		wife.sourceX += 80;
 	
-	wife.sourceX += 80;
+		if (wife.sourceX === 160) {
 	
-	if(wife.sourceX === 160)
-	{
-	wife.sourceX = 0;
-	}
-	context.drawImage(bobImage,bob.x,bob.y,bob.width,bob.height);
-	context.drawImage(wifeImage,wife.sourceX,wife.sourceY,wife.width,wife.height,wife.x,wife.y,wife.width,wife.height);
+			wife.sourceX = 0;
+		}
 	
-	if(bubbleSequence === 1)
-	{
-	context.drawImage(apartmentBubble1Image,apartmentBubble1.x,apartmentBubble1.y,apartmentBubble1.width,apartmentBubble1.height);
-	}
-	if(bubbleSequence === 2)
-	{
-	context.drawImage(apartmentBubble2Image,apartmentBubble2.x,apartmentBubble2.y,apartmentBubble2.width,apartmentBubble2.height);
-	}
-	if(bubbleSequence > 2)
-	{
-	context.font = "30px verdana";
-	context.fillText("WHAT DO YOU DO NEXT?",550,50);
-	context.fillText("Press the E key to explain.",550,200);
-	context.fillText("Press the L key to leave forever.",550,300);
-	//context.font = "70px verdana";
-	//context.fillText(timerValue,740,400);
+		context.drawImage(bobImage,bob.x,bob.y,bob.width,bob.height);
+		context.drawImage(wifeImage,wife.sourceX,wife.sourceY,wife.width,wife.height,wife.x,wife.y,wife.width,wife.height);
 	
-	beat.play();
+		if (bubbleSequence === 1) {
 	
-	context.font = "70px verdana";
-	context.fillText(counter4,740,400);
+			context.drawImage(apartmentBubble1Image,apartmentBubble1.x,apartmentBubble1.y,apartmentBubble1.width,apartmentBubble1.height);
+		}
+		
+		if (bubbleSequence === 2) {
 	
-	if(timerPlay4 === true)
-	{
-	countdown4();
-	}
-	if(counter4 === 0)
-	{
-	var randomChoice4 = Math.floor(Math.random() * randomArray.length);
-	timesUp4 = true;
-	choice4 = randomArray[randomChoice4];
+			context.drawImage(apartmentBubble2Image,apartmentBubble2.x,apartmentBubble2.y,apartmentBubble2.width,apartmentBubble2.height);
+		}
+	
+		if (bubbleSequence > 2) {
+	
+			context.font = "30px verdana";
+			context.fillText("WHAT DO YOU DO NEXT?",550,50);
+			context.fillText("Press the E key to explain.",550,200);
+			context.fillText("Press the L key to leave forever.",550,300);
+	
+			beat.play();
+	
+			context.font = "70px verdana";
+			context.fillText(counter4,740,400);
+	
+			if (timerPlay4 === true) {
+				countdown4();
+			}
+			if (counter4 === 0) {
+				var randomChoice4 = Math.floor(Math.random() * randomArray.length);
+				timesUp4 = true;
+				choice4 = randomArray[randomChoice4];
 
+				disableSpace = false;
+				context.font = "30px verdana";
+				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+			}
+		}
 	
-	disableSpace = false;
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,550);
+		if (bubbleSequence <= 2) {
+			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
+		}
 	}
 	
-	
-	}
-	if(bubbleSequence <= 2)
-	{
-	context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-	}
-	}
-	
-	//PAGE 12 (LEO)
-	
-	if(page === 12)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"LEO\"",140,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
+	if (page === 12) {
+		disableSpace = false;
+		context.font = "70px verdana";
+		context.fillText("\"LEO\"",140,230);
+		context.font = "30px verdana";
+		context.fillText("PRESS SPACE TO ADVANCE",35,430);
 	}
 	
-	//PAGE 13 (MAP)
+	if (page === 13) {
 	
-	if(page === 13)
-	{
-	disableSpace = true;
-	context.drawImage(mapImage,map.x,map.y,map.width,map.height);
-	context.drawImage(mapBubble1Image,mapBubble1.x,mapBubble1.y,mapBubble1.width,mapBubble1.height);
-	context.drawImage(mapBubble2Image,mapBubble2.x,mapBubble2.y,mapBubble2.width,mapBubble2.height);
+		disableSpace = true;
+		context.drawImage(mapImage,map.x,map.y,map.width,map.height);
+		context.drawImage(mapBubble1Image,mapBubble1.x,mapBubble1.y,mapBubble1.width,mapBubble1.height);
+		context.drawImage(mapBubble2Image,mapBubble2.x,mapBubble2.y,mapBubble2.width,mapBubble2.height);
 	
-	if(bubbleSequence === 1)
-	{
-	context.font = "30px verdana";
-	context.fillText("A sudden and horrible twist of fate has struck your family.",0,25);
-    context.fillText("Unfortunately, you cannot see both your mother and daughter",0,55);
-	context.fillText("as fate has decided for them to die on the same day.",0,85);
-	}
-	if(bubbleSequence >= 2)
-	{
-	context.font = "30px verdana";
-	context.fillText("WHAT DO YOU DO NEXT?",550,50);
-	context.fillText("Press M to visit your mother.",550,200);
-	context.fillText("Press D to stay with daughter.",550,300);
-	//context.font = "70px verdana";
-	//context.fillText(timerValue,740,400);
-	
-	
-	beat.play();
-	context.font = "70px verdana";
-	context.fillText(counter5,740,400);
-	
-	if(timerPlay5 === true)
-	{
-	countdown5();
-	}
-	if(counter5 === 0)
-	{
-	var randomChoice5 = Math.floor(Math.random() * randomArray.length);
-	timesUp5 = true;
-	choice5 = randomArray[randomChoice5];
+		if (bubbleSequence === 1) {
+		
+			context.font = "30px verdana";
+			context.fillText("A sudden and horrible twist of fate has struck your family.",0,25);
+			context.fillText("Unfortunately, you cannot see both your mother and daughter",0,55);
+			context.fillText("as fate has decided for them to die on the same day.",0,85);
+		}
+		if (bubbleSequence >= 2) {
+		
+			context.font = "30px verdana";
+			context.fillText("WHAT DO YOU DO NEXT?",550,50);
+			context.fillText("Press M to visit your mother.",550,200);
+			context.fillText("Press D to stay with daughter.",550,300);
+		
+			beat.play();
+			context.font = "70px verdana";
+			context.fillText(counter5,740,400);
+		
+			if (timerPlay5 === true) {
+		
+				countdown5();
+			}
+			if (counter5 === 0) {
+		
+				var randomChoice5 = Math.floor(Math.random() * randomArray.length);
+				timesUp5 = true;
+				choice5 = randomArray[randomChoice5];
 
-	
-	disableSpace = false;
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				disableSpace = false;
+				context.font = "30px verdana";
+				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+			}
+		}
+		if (bubbleSequence <= 1) {
+		
+			context.font = "30px verdana";
+			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
+		}
 	}
 	
+	if (page === 14) {
 	
-	}
-	if(bubbleSequence <= 1)
-	{
-	context.font = "30px verdana";
-	context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-	}
-	}
-	
-	//PAGE 14 (CAROL)
-	
-	if(page === 14)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"CAROL\"",100,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	
-	//PAGE 15
-	
-	if(page === 15)
-	{
-	disableSpace = true;
-	context.drawImage(shedImage,shed.x,shed.y,shed.width,shed.height);
-	
-	if(bubbleSequence === 1)
-	{
-	context.drawImage(shedBubble1Image,shedBubble1.x,shedBubble1.y,shedBubble1.width,shedBubble1.height);
-	}
-	if(bubbleSequence === 2)
-	{
-	context.drawImage(shedBubble2Image,shedBubble2.x,shedBubble2.y,shedBubble2.width,shedBubble2.height);
-	}
-	if(bubbleSequence === 3)
-	{
-	context.drawImage(shedBubble3Image,shedBubble3.x,shedBubble3.y,shedBubble3.width,shedBubble3.height);
-	}
-	if(bubbleSequence > 3)
-	{
-	context.font = "30px verdana";
-	context.fillText("WHAT DO YOU DO NEXT?",550,50);
-	context.fillText("Press the E key to enter shed.",550,200);
-	context.fillText("Press the W key to walk away.",550,300);
-	//context.font = "70px verdana";
-	//context.fillText(timerValue,740,400);
-	
-	beat.play();
-	context.font = "70px verdana";
-	context.fillText(counter6,740,400);
-	
-	if(timerPlay6 === true)
-	{
-	countdown6();
-	}
-	if(counter6 === 0)
-	{
-	var randomChoice6 = Math.floor(Math.random() * randomArray.length);
-	timesUp6 = true;
-	choice6 = randomArray[randomChoice6];
-
-	
-	disableSpace = false;
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,550);
-	}
-	
-	}
-	
-	if(bubbleSequence <= 3)
-	{
-	context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-	}
-	context.drawImage(carolImage,carol.sourceX,carol.sourceY,carol.width,carol.height,carol.x,carol.y,carol.width,carol.height);
-	
-	
-	}
-	
-	//PAGE 16 (CONCLUSIONS)
-	
-	if(page === 16)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("CONCLUSIONS",30,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",75,430);
-	}
-	
-	//PAGE 17 (CHUCK 2)
-	
-	if(page === 17)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"CHUCK\"",100,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	
-	}
-	if(page === 18)
-	{
-	//context.drawImage(royPicImage,royPic.x,royPic.y,royPic.width,royPic.height);
-	context.drawImage(chuckTitleImage,chuckTitle.x,chuckTitle.y,chuckTitle.width,chuckTitle.height);
-	
-	
-	if (choice1 === "A" && choice6 === "A")
-	{
-	context.drawImage(chuckChoice2Image,chuckChoice2.x,chuckChoice2.y,chuckChoice2.width,chuckChoice2.height);
-	}
-	if(choice1 === "A" && choice6 === "B")
-	{
-	context.drawImage(chuckChoice1Image,chuckChoice1.x,chuckChoice1.y,chuckChoice1.width,chuckChoice1.height);
-	}
-	if(choice1 === "B" && choice4 === "B")
-	{
-	context.drawImage(chuckChoice3Image,chuckChoice3.x,chuckChoice3.y,chuckChoice3.width,chuckChoice3.height);
-	}
-	if(choice1 === "B" && choice4 === "A")
-	{
-	context.drawImage(chuckChoice4Image,chuckChoice4.x,chuckChoice4.y,chuckChoice4.width,chuckChoice4.height);
-	}
-	
-	}
-	if(page === 19)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"ROY\"",140,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	if(page === 20)
-	{
-	//context.drawImage(royPicImage,royPic.x,royPic.y,royPic.width,royPic.height);
-	context.drawImage(royTitleImage,royTitle.x,royTitle.y,royTitle.width,royTitle.height);
-	
-	if (choice2 === "A")
-	{
-	context.drawImage(royChoice1Image,royChoice1.x,royChoice1.y,royChoice1.width,royChoice1.height);
-	}
-	if(choice2 === "B" && choice6 === "A")
-	{
-	context.drawImage(royChoice2Image,royChoice2.x,royChoice2.y,royChoice2.width,royChoice2.height);
-	}
-	if(choice2 === "B" && choice6 === "B")
-	{
-	context.drawImage(royChoice3Image,royChoice3.x,royChoice3.y,royChoice3.width,royChoice3.height);
+		disableSpace = false;
+		context.font = "70px verdana";
+		context.fillText("\"CAROL\"",100,230);
+		context.font = "30px verdana";
+		context.fillText("PRESS SPACE TO ADVANCE",35,430);
 	}
 
+	if (page === 15) {
+	
+		disableSpace = true;
+		context.drawImage(shedImage,shed.x,shed.y,shed.width,shed.height);
+	
+		if (bubbleSequence === 1) {
+			context.drawImage(shedBubble1Image,shedBubble1.x,shedBubble1.y,shedBubble1.width,shedBubble1.height);
+		}
+		if (bubbleSequence === 2) {
+			context.drawImage(shedBubble2Image,shedBubble2.x,shedBubble2.y,shedBubble2.width,shedBubble2.height);
+		}
+		if (bubbleSequence === 3) {
+			context.drawImage(shedBubble3Image,shedBubble3.x,shedBubble3.y,shedBubble3.width,shedBubble3.height);
+		}
+		if (bubbleSequence > 3) {
+			context.font = "30px verdana";
+			context.fillText("WHAT DO YOU DO NEXT?",550,50);
+			context.fillText("Press the E key to enter shed.",550,200);
+			context.fillText("Press the W key to walk away.",550,300);
+
+			beat.play();
+			context.font = "70px verdana";
+			context.fillText(counter6,740,400);
+		
+			if (timerPlay6 === true) {
+				countdown6();
+			}
+			if (counter6 === 0) {
+				var randomChoice6 = Math.floor(Math.random() * randomArray.length);
+				timesUp6 = true;
+				choice6 = randomArray[randomChoice6];
+
+				disableSpace = false;
+				context.font = "30px verdana";
+				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+			}
+		}
+	
+		if (bubbleSequence <= 3) {
+			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
+		}
+	
+		context.drawImage(carolImage,carol.sourceX,carol.sourceY,carol.width,carol.height,carol.x,carol.y,carol.width,carol.height);
 	}
-	if(page === 21)
-	{
-    disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"LISA\"",130,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
+	
+	if (page === 16) {
+		
+		disableSpace = false;
+		context.font = "70px verdana";
+		context.fillText("CONCLUSIONS",30,230);
+		context.font = "30px verdana";
+		context.fillText("PRESS SPACE TO ADVANCE",75,430);
+	}
+
+	if (page === 17) {
+		
+		disableSpace = false;
+		context.font = "70px verdana";
+		context.fillText("\"CHUCK\"",100,230);
+		context.font = "30px verdana";
+		context.fillText("PRESS SPACE TO ADVANCE",35,430);
+	}
+	
+	if (page === 18) {
+	
+		context.drawImage(chuckTitleImage,chuckTitle.x,chuckTitle.y,chuckTitle.width,chuckTitle.height);
+	
+		if (choice1 === "A" && choice6 === "A") {
+			context.drawImage(chuckChoice2Image,chuckChoice2.x,chuckChoice2.y,chuckChoice2.width,chuckChoice2.height);
+		}
+		if (choice1 === "A" && choice6 === "B") {
+			context.drawImage(chuckChoice1Image,chuckChoice1.x,chuckChoice1.y,chuckChoice1.width,chuckChoice1.height);
+		}
+		if (choice1 === "B" && choice4 === "B") {
+			context.drawImage(chuckChoice3Image,chuckChoice3.x,chuckChoice3.y,chuckChoice3.width,chuckChoice3.height);
+		}
+		if (choice1 === "B" && choice4 === "A") {
+			context.drawImage(chuckChoice4Image,chuckChoice4.x,chuckChoice4.y,chuckChoice4.width,chuckChoice4.height);
+		}
+
+	if (page === 19) {
+	
+		disableSpace = false;
+		context.font = "70px verdana";
+		context.fillText("\"ROY\"",140,230);
+		context.font = "30px verdana";
+		context.fillText("PRESS SPACE TO ADVANCE",35,430);
+	}
+	
+	if (page === 20) {
+	
+		context.drawImage(royTitleImage,royTitle.x,royTitle.y,royTitle.width,royTitle.height);
+	
+		if (choice2 === "A") {
+			context.drawImage(royChoice1Image,royChoice1.x,royChoice1.y,royChoice1.width,royChoice1.height);
+		}
+		if (choice2 === "B" && choice6 === "A") {
+			context.drawImage(royChoice2Image,royChoice2.x,royChoice2.y,royChoice2.width,royChoice2.height);
+		}
+		if (choice2 === "B" && choice6 === "B") {
+			context.drawImage(royChoice3Image,royChoice3.x,royChoice3.y,royChoice3.width,royChoice3.height);
+		}
+	}
+	
+	if (page === 21) {
+		
+		disableSpace = false;
+		context.font = "70px verdana";
+		context.fillText("\"LISA\"",130,230);
+		context.font = "30px verdana";
+		context.fillText("PRESS SPACE TO ADVANCE",35,430);
 	}
 	if(page === 22)
 	{
