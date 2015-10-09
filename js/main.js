@@ -1,778 +1,762 @@
 
+(function () {
 
 
+	var canvas = document.getElementById("theCanvas"),
+		context = canvas.getContext("2d"),
 
-var canvas = document.getElementById("theCanvas");
-var context = canvas.getContext("2d");
+		page = 1,
+		bubbleSequence = 1,
 
-var page = 1;
-var bubbleSequence = 1;
+		disableSpace = false,
 
-var disableSpace = false;
+		choice1 = "",
+		choice2 = "",
+		choice3 = "",
+		choice4 = "",
+		choice5 = "",
+		choice6 = "",
 
-var choice1 = "";
-var choice2 = "";
-var choice3 = "";
-var choice4 = "";
-var choice5 = "";
-var choice6 = "";
+		randomArray = ["A","B"],
 
-var randomArray = ["A","B"];
+		timerValue = 10,
 
-var timerValue = 10;
+		counter1 = 10,
+		timerPlay1 = true,
+		timesUp1 = false,
 
-var counter1 = 10;
-var timerPlay1 = true;
-var timesUp1 = false;
+		counter2 = 10,
+		timerPlay2 = true,
+		timesUp2 = false,
 
-var counter2 = 10;
-var timerPlay2 = true;
-var timesUp2 = false;
+		counter3 = 10,
+		timerPlay3 = true,
+		timesUp3 = false,
+		
+		counter4 = 10,
+		timerPlay4 = true,
+		timesUp4 = false,
 
+		counter5 = 10,
+		timerPlay5 = true,
+		timesUp5 = false,
 
-var counter3 = 10;
-var timerPlay3 = true;
-var timesUp3 = false;
+		counter6 = 10,
+		timerPlay6 = true,
+		timesUp6 = false,
 
+		beat = document.getElementById("theme");
 
-var counter4 = 10;
-var timerPlay4 = true;
-var timesUp4 = false;
 
+	var cedarville = Object.create(spriteObject);
+	cedarville.x = 0;
+	cedarville.y = 0;
+	cedarville.width = 375;
+	cedarville.height = 400;
 
-var counter5 = 10;
-var timerPlay5 = true;
-var timesUp5 = false;
+	var cedarvilleImage = new Image();
+	cedarvilleImage.src = "images/cedarville.png";
 
+	//INSTRUCTIONS 1
 
-var counter6 = 10;
-var timerPlay6 = true;
-var timesUp6 = false;
+	var instructions1 = Object.create(spriteObject);
+	instructions1.x = 30;
+	instructions1.y = 30;
+	instructions1.width = 450;
+	instructions1.height = 400;
 
-var beat = document.getElementById("theme");
+	var instructions1Image = new Image();
+	instructions1Image.src = "images/instructions1.png";
 
+	//INSTRUCTIONS 2
 
+	var instructions2 = Object.create(spriteObject);
+	instructions2.x = 30;
+	instructions2.y = 50;
+	instructions2.width = 450;
+	instructions2.height = 360;
 
-//CEDARVILLE LOGO
+	var instructions2Image = new Image();
+	instructions2Image.src = "images/instructions2.png";
 
-var cedarville = Object.create(spriteObject);
-cedarville.x = 0;
-cedarville.y = 0;
-cedarville.width = 375;
-cedarville.height = 400;
+	//CAROL
 
-var cedarvilleImage = new Image();
-cedarvilleImage.src = "images/cedarville.png";
+	var carol = Object.create(spriteObject);
+	carol.x = 30;
+	carol.y = 250;
+	carol.width = 50;
+	carol.height = 175;
 
-//INSTRUCTIONS 1
+	var carolImage = new Image();
+	carolImage.src = "images/carol.png";
 
-var instructions1 = Object.create(spriteObject);
-instructions1.x = 30;
-instructions1.y = 30;
-instructions1.width = 450;
-instructions1.height = 400;
+	//ROY
 
-var instructions1Image = new Image();
-instructions1Image.src = "images/instructions1.png";
+	var roy = Object.create(spriteObject);
+	roy.x = 200;
+	roy.y = 270;
+	roy.width = 110;
+	roy.height = 174;
+	var royMove = false;
 
-//INSTRUCTIONS 2
+	var royImage = new Image();
+	royImage.src = "images/roy.png";
 
-var instructions2 = Object.create(spriteObject);
-instructions2.x = 30;
-instructions2.y = 50;
-instructions2.width = 450;
-instructions2.height = 360;
+	//DOG
 
-var instructions2Image = new Image();
-instructions2Image.src = "images/instructions2.png";
+	var dog = Object.create(spriteObject);
+	dog.x = 400;
+	dog.y = 300;
+	dog.width = 150;
+	dog.height = 130;
 
-//CAROL
+	var dogImage = new Image();
+	dogImage.src = "images/dog.png";
 
-var carol = Object.create(spriteObject);
-carol.x = 30;
-carol.y = 250;
-carol.width = 50;
-carol.height = 175;
+	//STREET
 
-var carolImage = new Image();
-carolImage.src = "images/carol.png";
+	var street = Object.create(spriteObject);
+	street.x = -50;
+	street.y = 0;
+	street.width = 590;
+	street.height = 260;
 
-//ROY
+	var streetImage = new Image();
+	streetImage.src = "images/background1.png";
 
-var roy = Object.create(spriteObject);
-roy.x = 200;
-roy.y = 270;
-roy.width = 110;
-roy.height = 174;
-var royMove = false;
+	//HOTEL
 
-var royImage = new Image();
-royImage.src = "images/roy.png";
+	var hotel = Object.create(spriteObject);
+	hotel.x = -50;
+	hotel.y = 0;
+	hotel.width = 550;
+	hotel.height = 400;
 
-//DOG
+	var hotelImage = new Image();
+	hotelImage.src = "images/hotel.png";
 
-var dog = Object.create(spriteObject);
-dog.x = 400;
-dog.y = 300;
-dog.width = 150;
-dog.height = 130;
+	//HOTEL BUBBLE1
 
-var dogImage = new Image();
-dogImage.src = "images/dog.png";
+	var hotelBubble1 = Object.create(spriteObject);
+	hotelBubble1.x = 270;
+	hotelBubble1.y = 0;
+	hotelBubble1.width = 210;
+	hotelBubble1.height = 120;
 
-//STREET
+	var hotelBubble1Image = new Image();
+	hotelBubble1Image.src = "images/hotelBubble1.png";
 
-var street = Object.create(spriteObject);
-street.x = -50;
-street.y = 0;
-street.width = 590;
-street.height = 260;
+	//HOTEL BUBBLE2
 
-var streetImage = new Image();
-streetImage.src = "images/background1.png";
+	var hotelBubble2 = Object.create(spriteObject);
+	hotelBubble2.x = 170;
+	hotelBubble2.y = 120;
+	hotelBubble2.width = 210;
+	hotelBubble2.height = 120;
 
-//HOTEL
+	var hotelBubble2Image = new Image();
+	hotelBubble2Image.src = "images/hotelBubble2.png";
 
-var hotel = Object.create(spriteObject);
-hotel.x = -50;
-hotel.y = 0;
-hotel.width = 550;
-hotel.height = 400;
+	//HOTEL BUBBLE3
 
-var hotelImage = new Image();
-hotelImage.src = "images/hotel.png";
+	var hotelBubble3 = Object.create(spriteObject);
+	hotelBubble3.x = 270;
+	hotelBubble3.y = 0;
+	hotelBubble3.width = 210;
+	hotelBubble3.height = 120;
 
-//HOTEL BUBBLE1
+	var hotelBubble3Image = new Image();
+	hotelBubble3Image.src = "images/hotelBubble3.png";
 
-var hotelBubble1 = Object.create(spriteObject);
-hotelBubble1.x = 270;
-hotelBubble1.y = 0;
-hotelBubble1.width = 210;
-hotelBubble1.height = 120;
+	//STREET BUBBLE1
 
-var hotelBubble1Image = new Image();
-hotelBubble1Image.src = "images/hotelBubble1.png";
+	var streetBubble1 = Object.create(spriteObject);
+	streetBubble1.x = 360;
+	streetBubble1.y = 0;
+	streetBubble1.width = 210;
+	streetBubble1.height = 120;
 
-//HOTEL BUBBLE2
+	var streetBubble1Image = new Image();
+	streetBubble1Image.src = "images/streetBubble1.png";
 
-var hotelBubble2 = Object.create(spriteObject);
-hotelBubble2.x = 170;
-hotelBubble2.y = 120;
-hotelBubble2.width = 210;
-hotelBubble2.height = 120;
+	//STREET BUBBLE2
 
-var hotelBubble2Image = new Image();
-hotelBubble2Image.src = "images/hotelBubble2.png";
+	var streetBubble2 = Object.create(spriteObject);
+	streetBubble2.x = 70;
+	streetBubble2.y = 0;
+	streetBubble2.width = 210;
+	streetBubble2.height = 120;
 
-//HOTEL BUBBLE3
+	var streetBubble2Image = new Image();
+	streetBubble2Image.src = "images/streetBubble2.png";
 
-var hotelBubble3 = Object.create(spriteObject);
-hotelBubble3.x = 270;
-hotelBubble3.y = 0;
-hotelBubble3.width = 210;
-hotelBubble3.height = 120;
+	//STREET BUBBLE3
 
-var hotelBubble3Image = new Image();
-hotelBubble3Image.src = "images/hotelBubble3.png";
+	var streetBubble3 = Object.create(spriteObject);
+	streetBubble3.x = -20;
+	streetBubble3.y = 0;
+	streetBubble3.width = 200;
+	streetBubble3.height = 100;
 
-//STREET BUBBLE1
+	var streetBubble3Image = new Image();
+	streetBubble3Image.src = "images/streetBubble3.png";
 
-var streetBubble1 = Object.create(spriteObject);
-streetBubble1.x = 360;
-streetBubble1.y = 0;
-streetBubble1.width = 210;
-streetBubble1.height = 120;
+	//OFFICE BUBBLE 1
 
-var streetBubble1Image = new Image();
-streetBubble1Image.src = "images/streetBubble1.png";
+	var officeBubble1 = Object.create(spriteObject);
+	officeBubble1.x = 340;
+	officeBubble1.y = 100;
+	officeBubble1.width = 200;
+	officeBubble1.height = 100;
 
-//STREET BUBBLE2
+	var officeBubble1Image = new Image();
+	officeBubble1Image.src = "images/officeBubble1.png";
 
-var streetBubble2 = Object.create(spriteObject);
-streetBubble2.x = 70;
-streetBubble2.y = 0;
-streetBubble2.width = 210;
-streetBubble2.height = 120;
+	//OFFICE BUBBLE 2
 
-var streetBubble2Image = new Image();
-streetBubble2Image.src = "images/streetBubble2.png";
+	var officeBubble2 = Object.create(spriteObject);
+	officeBubble2.x = 80;
+	officeBubble2.y = 30;
+	officeBubble2.width = 200;
+	officeBubble2.height = 100;
 
-//STREET BUBBLE3
+	var officeBubble2Image = new Image();
+	officeBubble2Image.src = "images/officeBubble2.png";
 
-var streetBubble3 = Object.create(spriteObject);
-streetBubble3.x = -20;
-streetBubble3.y = 0;
-streetBubble3.width = 200;
-streetBubble3.height = 100;
 
-var streetBubble3Image = new Image();
-streetBubble3Image.src = "images/streetBubble3.png";
+	//OFFICE BUBBLE 3
 
-//OFFICE BUBBLE 1
+	var officeBubble3 = Object.create(spriteObject);
+	officeBubble3.x = 340;
+	officeBubble3.y = 100;
+	officeBubble3.width = 200;
+	officeBubble3.height = 100;
 
-var officeBubble1 = Object.create(spriteObject);
-officeBubble1.x = 340;
-officeBubble1.y = 100;
-officeBubble1.width = 200;
-officeBubble1.height = 100;
+	var officeBubble3Image = new Image();
+	officeBubble3Image.src = "images/officeBubble3.png";
 
-var officeBubble1Image = new Image();
-officeBubble1Image.src = "images/officeBubble1.png";
+	//OFFICE BUBBLE 4
 
-//OFFICE BUBBLE 2
+	var officeBubble4 = Object.create(spriteObject);
+	officeBubble4.x = 80;
+	officeBubble4.y = 30;
+	officeBubble4.width = 200;
+	officeBubble4.height = 100;
 
-var officeBubble2 = Object.create(spriteObject);
-officeBubble2.x = 80;
-officeBubble2.y = 30;
-officeBubble2.width = 200;
-officeBubble2.height = 100;
+	var officeBubble4Image = new Image();
+	officeBubble4Image.src = "images/officeBubble4.png";
 
-var officeBubble2Image = new Image();
-officeBubble2Image.src = "images/officeBubble2.png";
+	//OFFICE BUBBLE 5
 
+	var officeBubble5 = Object.create(spriteObject);
+	officeBubble5.x = 340;
+	officeBubble5.y = 100;
+	officeBubble5.width = 200;
+	officeBubble5.height = 100;
 
-//OFFICE BUBBLE 3
+	var officeBubble5Image = new Image();
+	officeBubble5Image.src = "images/officeBubble5.png";
 
-var officeBubble3 = Object.create(spriteObject);
-officeBubble3.x = 340;
-officeBubble3.y = 100;
-officeBubble3.width = 200;
-officeBubble3.height = 100;
 
-var officeBubble3Image = new Image();
-officeBubble3Image.src = "images/officeBubble3.png";
+	var chuck = Object.create(spriteObject);
+	chuck.x = 0;
+	chuck.y = 200;
+	chuck.width = 155;
+	chuck.height = 210;
+	var chuckMove = false;
 
-//OFFICE BUBBLE 4
+	var chuckImage = new Image();
+	chuckImage.src = "images/chuck.png";
 
-var officeBubble4 = Object.create(spriteObject);
-officeBubble4.x = 80;
-officeBubble4.y = 30;
-officeBubble4.width = 200;
-officeBubble4.height = 100;
+	var office = Object.create(spriteObject);
+	office.x = 0;
+	office.y = 100;
+	office.width = 550;
+	office.height = 400;
 
-var officeBubble4Image = new Image();
-officeBubble4Image.src = "images/officeBubble4.png";
+	var officeImage = new Image();
+	officeImage.src = "images/office.png";
 
-//OFFICE BUBBLE 5
+	var apartment = Object.create(spriteObject);
+	apartment.x = 0;
+	apartment.y = 100;
+	apartment.width = 550;
+	apartment.height = 400;
 
-var officeBubble5 = Object.create(spriteObject);
-officeBubble5.x = 340;
-officeBubble5.y = 100;
-officeBubble5.width = 200;
-officeBubble5.height = 100;
+	var apartmentImage = new Image();
+	apartmentImage.src = "images/apartment.png";
 
-var officeBubble5Image = new Image();
-officeBubble5Image.src = "images/officeBubble5.png";
+	//BOB'S WIFE
 
+	var wife = Object.create(spriteObject);
+	wife.x = 200;
+	wife.y = 170;
+	wife.width = 80;
+	wife.height = 210;
 
+	var wifeImage = new Image();
+	wifeImage.src = "images/wife.png";
 
+	//BOB
 
+	var bob = Object.create(spriteObject);
+	bob.x = 120;
+	bob.y = 140;
+	bob.width = 72;
+	bob.height = 190;
 
-//CHUCK
+	var bobImage = new Image();
+	bobImage.src = "images/bob.png";
 
-var chuck = Object.create(spriteObject);
-chuck.x = 0;
-chuck.y = 200;
-chuck.width = 155;
-chuck.height = 210;
-var chuckMove = false;
+	//APARTMENT BUBBLE 1
 
-var chuckImage = new Image();
-chuckImage.src = "images/chuck.png";
+	var apartmentBubble1 = Object.create(spriteObject);
+	apartmentBubble1.x = 180;
+	apartmentBubble1.y = 110;
+	apartmentBubble1.width = 200;
+	apartmentBubble1.height = 100;
 
-//OFFICE
+	var apartmentBubble1Image = new Image();
+	apartmentBubble1Image.src = "images/apartmentBubble1.png";
 
-var office = Object.create(spriteObject);
-office.x = 0;
-office.y = 100;
-office.width = 550;
-office.height = 400;
+	//APARTMENT BUBBLE 2
 
-var officeImage = new Image();
-officeImage.src = "images/office.png";
+	var apartmentBubble2 = Object.create(spriteObject);
+	apartmentBubble2.x = 180;
+	apartmentBubble2.y = 110;
+	apartmentBubble2.width = 200;
+	apartmentBubble2.height = 100;
 
-//APARTMENT
+	var apartmentBubble2Image = new Image();
+	apartmentBubble2Image.src = "images/apartmentBubble2.png";
 
-var apartment = Object.create(spriteObject);
-apartment.x = 0;
-apartment.y = 100;
-apartment.width = 550;
-apartment.height = 400;
 
-var apartmentImage = new Image();
-apartmentImage.src = "images/apartment.png";
 
-//BOB'S WIFE
 
-var wife = Object.create(spriteObject);
-wife.x = 200;
-wife.y = 170;
-wife.width = 80;
-wife.height = 210;
+	//MAP
 
-var wifeImage = new Image();
-wifeImage.src = "images/wife.png";
+	var map = Object.create(spriteObject);
+	map.x = 0;
+	map.y = 100;
+	map.width = 550;
+	map.height = 400;
 
-//BOB
+	var mapImage = new Image();
+	mapImage.src = "images/map.png";
 
-var bob = Object.create(spriteObject);
-bob.x = 120;
-bob.y = 140;
-bob.width = 72;
-bob.height = 190;
+	//MAP BUBBLE 1
 
-var bobImage = new Image();
-bobImage.src = "images/bob.png";
+	var mapBubble1 = Object.create(spriteObject);
+	mapBubble1.x = 60;
+	mapBubble1.y = 160;
+	mapBubble1.width = 234;
+	mapBubble1.height = 168;
 
-//APARTMENT BUBBLE 1
+	var mapBubble1Image = new Image();
+	mapBubble1Image.src = "images/mapBubble1.png";
 
-var apartmentBubble1 = Object.create(spriteObject);
-apartmentBubble1.x = 180;
-apartmentBubble1.y = 110;
-apartmentBubble1.width = 200;
-apartmentBubble1.height = 100;
+	//MAP BUBBLE 2
 
-var apartmentBubble1Image = new Image();
-apartmentBubble1Image.src = "images/apartmentBubble1.png";
+	var mapBubble2 = Object.create(spriteObject);
+	mapBubble2.x = 180;
+	mapBubble2.y = 310;
+	mapBubble2.width = 275;
+	mapBubble2.height = 180;
 
-//APARTMENT BUBBLE 2
+	var mapBubble2Image = new Image();
+	mapBubble2Image.src = "images/mapBubble2.png";
 
-var apartmentBubble2 = Object.create(spriteObject);
-apartmentBubble2.x = 180;
-apartmentBubble2.y = 110;
-apartmentBubble2.width = 200;
-apartmentBubble2.height = 100;
+	//SHED
 
-var apartmentBubble2Image = new Image();
-apartmentBubble2Image.src = "images/apartmentBubble2.png";
+	var shed = Object.create(spriteObject);
+	shed.x = 0;
+	shed.y = 0;
+	shed.width = 550;
+	shed.height = 400;
 
+	var shedImage = new Image();
+	shedImage.src = "images/shed.png";
 
+	//SHED BUBBLE 1
 
+	var shedBubble1 = Object.create(spriteObject);
+	shedBubble1.x = 70;
+	shedBubble1.y = 0;
+	shedBubble1.width = 350;
+	shedBubble1.height = 300;
 
-//MAP
+	var shedBubble1Image = new Image();
+	shedBubble1Image.src = "images/shedBubble1.png";
 
-var map = Object.create(spriteObject);
-map.x = 0;
-map.y = 100;
-map.width = 550;
-map.height = 400;
+	var shedBubble2 = Object.create(spriteObject);
+	shedBubble2.x = 70;
+	shedBubble2.y = 0;
+	shedBubble2.width = 350;
+	shedBubble2.height = 300;
 
-var mapImage = new Image();
-mapImage.src = "images/map.png";
+	var shedBubble2Image = new Image();
+	shedBubble2Image.src = "images/shedBubble2.png";
 
-//MAP BUBBLE 1
 
-var mapBubble1 = Object.create(spriteObject);
-mapBubble1.x = 60;
-mapBubble1.y = 160;
-mapBubble1.width = 234;
-mapBubble1.height = 168;
+	var shedBubble3 = Object.create(spriteObject);
+	shedBubble3.x = 70;
+	shedBubble3.y = 0;
+	shedBubble3.width = 350;
+	shedBubble3.height = 300;
 
-var mapBubble1Image = new Image();
-mapBubble1Image.src = "images/mapBubble1.png";
+	var shedBubble3Image = new Image();
+	shedBubble3Image.src = "images/shedBubble3.png";
 
-//MAP BUBBLE 2
+	//CHUCK TITLE
 
-var mapBubble2 = Object.create(spriteObject);
-mapBubble2.x = 180;
-mapBubble2.y = 310;
-mapBubble2.width = 275;
-mapBubble2.height = 180;
+	var chuckTitle = Object.create(spriteObject);
+	chuckTitle.x = 70;
+	chuckTitle.y = 60;
+	chuckTitle.width = 350;
+	chuckTitle.height = 40;
 
-var mapBubble2Image = new Image();
-mapBubble2Image.src = "images/mapBubble2.png";
+	var chuckTitleImage = new Image();
+	chuckTitleImage.src = "images/chuckTitle.png";
 
-//SHED
+	//ROY TITLE
 
-var shed = Object.create(spriteObject);
-shed.x = 0;
-shed.y = 0;
-shed.width = 550;
-shed.height = 400;
+	var royTitle = Object.create(spriteObject);
+	royTitle.x = 70;
+	royTitle.y = 60;
+	royTitle.width = 380;
+	royTitle.height = 130;
 
-var shedImage = new Image();
-shedImage.src = "images/shed.png";
+	var royTitleImage = new Image();
+	royTitleImage.src = "images/royTitle.png";
 
-//SHED BUBBLE 1
+	//LISA TITLE
 
-var shedBubble1 = Object.create(spriteObject);
-shedBubble1.x = 70;
-shedBubble1.y = 0;
-shedBubble1.width = 350;
-shedBubble1.height = 300;
+	var lisaTitle = Object.create(spriteObject);
+	lisaTitle.x = 70;
+	lisaTitle.y = 60;
+	lisaTitle.width = 390;
+	lisaTitle.height = 135;
 
-var shedBubble1Image = new Image();
-shedBubble1Image.src = "images/shedBubble1.png";
+	var lisaTitleImage = new Image();
+	lisaTitleImage.src = "images/lisaTitle.png";
 
-var shedBubble2 = Object.create(spriteObject);
-shedBubble2.x = 70;
-shedBubble2.y = 0;
-shedBubble2.width = 350;
-shedBubble2.height = 300;
+	//BOB TITLE
 
-var shedBubble2Image = new Image();
-shedBubble2Image.src = "images/shedBubble2.png";
+	var bobTitle = Object.create(spriteObject);
+	bobTitle.x = 120;
+	bobTitle.y = 60;
+	bobTitle.width = 265;
+	bobTitle.height = 60;
 
+	var bobTitleImage = new Image();
+	bobTitleImage.src = "images/bobTitle.png";
 
-var shedBubble3 = Object.create(spriteObject);
-shedBubble3.x = 70;
-shedBubble3.y = 0;
-shedBubble3.width = 350;
-shedBubble3.height = 300;
+	//LEO TITLE
 
-var shedBubble3Image = new Image();
-shedBubble3Image.src = "images/shedBubble3.png";
+	var leoTitle = Object.create(spriteObject);
+	leoTitle.x = 50;
+	leoTitle.y = 60;
+	leoTitle.width = 420;
+	leoTitle.height = 135;
 
-//CHUCK TITLE
+	var leoTitleImage = new Image();
+	leoTitleImage.src = "images/leoTitle.png";
 
-var chuckTitle = Object.create(spriteObject);
-chuckTitle.x = 70;
-chuckTitle.y = 60;
-chuckTitle.width = 350;
-chuckTitle.height = 40;
+	//CAROL TITLE
 
-var chuckTitleImage = new Image();
-chuckTitleImage.src = "images/chuckTitle.png";
+	var carolTitle = Object.create(spriteObject);
+	carolTitle.x = 70;
+	carolTitle.y = 60;
+	carolTitle.width = 390;
+	carolTitle.height = 150;
 
-//ROY TITLE
+	var carolTitleImage = new Image();
+	carolTitleImage.src = "images/carolTitle.png";
 
-var royTitle = Object.create(spriteObject);
-royTitle.x = 70;
-royTitle.y = 60;
-royTitle.width = 380;
-royTitle.height = 130;
+	//CHUCK CHOICES
 
-var royTitleImage = new Image();
-royTitleImage.src = "images/royTitle.png";
+	var chuckChoice1 = Object.create(spriteObject);
+	chuckChoice1.x = 70;
+	chuckChoice1.y = 150;
+	chuckChoice1.width = 400;
+	chuckChoice1.height = 208;
 
-//LISA TITLE
+	var chuckChoice1Image = new Image();
+	chuckChoice1Image.src = "images/chuckChoice1.png";
 
-var lisaTitle = Object.create(spriteObject);
-lisaTitle.x = 70;
-lisaTitle.y = 60;
-lisaTitle.width = 390;
-lisaTitle.height = 135;
+	var chuckChoice2 = Object.create(spriteObject);
+	chuckChoice2.x = 70;
+	chuckChoice2.y = 150;
+	chuckChoice2.width = 400;
+	chuckChoice2.height = 392;
 
-var lisaTitleImage = new Image();
-lisaTitleImage.src = "images/lisaTitle.png";
+	var chuckChoice2Image = new Image();
+	chuckChoice2Image.src = "images/chuckChoice2.png";
 
-//BOB TITLE
+	var chuckChoice3 = Object.create(spriteObject);
+	chuckChoice3.x = 70;
+	chuckChoice3.y = 150;
+	chuckChoice3.width = 400;
+	chuckChoice3.height = 162;
 
-var bobTitle = Object.create(spriteObject);
-bobTitle.x = 120;
-bobTitle.y = 60;
-bobTitle.width = 265;
-bobTitle.height = 60;
+	var chuckChoice3Image = new Image();
+	chuckChoice3Image.src = "images/chuckChoice3.png";
 
-var bobTitleImage = new Image();
-bobTitleImage.src = "images/bobTitle.png";
+	var chuckChoice4 = Object.create(spriteObject);
+	chuckChoice4.x = 70;
+	chuckChoice4.y = 150;
+	chuckChoice4.width = 400;
+	chuckChoice4.height = 116;
 
-//LEO TITLE
+	var chuckChoice4Image = new Image();
+	chuckChoice4Image.src = "images/chuckChoice4.png";
 
-var leoTitle = Object.create(spriteObject);
-leoTitle.x = 50;
-leoTitle.y = 60;
-leoTitle.width = 420;
-leoTitle.height = 135;
+	//ROY'S CHOICES
 
-var leoTitleImage = new Image();
-leoTitleImage.src = "images/leoTitle.png";
+	var royChoice1 = Object.create(spriteObject);
+	royChoice1.x = 70;
+	royChoice1.y = 250;
+	royChoice1.width = 400;
+	royChoice1.height = 182;
 
-//CAROL TITLE
+	var royChoice1Image = new Image();
+	royChoice1Image.src = "images/royChoice1.png";
 
-var carolTitle = Object.create(spriteObject);
-carolTitle.x = 70;
-carolTitle.y = 60;
-carolTitle.width = 390;
-carolTitle.height = 150;
+	var royChoice2 = Object.create(spriteObject);
+	royChoice2.x = 70;
+	royChoice2.y = 250;
+	royChoice2.width = 400;
+	royChoice2.height = 182;
 
-var carolTitleImage = new Image();
-carolTitleImage.src = "images/carolTitle.png";
+	var royChoice2Image = new Image();
+	royChoice2Image.src = "images/royChoice2.png";
 
-//CHUCK CHOICES
+	var royChoice3 = Object.create(spriteObject);
+	royChoice3.x = 70;
+	royChoice3.y = 250;
+	royChoice3.width = 400;
+	royChoice3.height = 296;
 
-var chuckChoice1 = Object.create(spriteObject);
-chuckChoice1.x = 70;
-chuckChoice1.y = 150;
-chuckChoice1.width = 400;
-chuckChoice1.height = 208;
+	var royChoice3Image = new Image();
+	royChoice3Image.src = "images/royChoice3.png";
 
-var chuckChoice1Image = new Image();
-chuckChoice1Image.src = "images/chuckChoice1.png";
+	//LISA'S CHOICES
 
-var chuckChoice2 = Object.create(spriteObject);
-chuckChoice2.x = 70;
-chuckChoice2.y = 150;
-chuckChoice2.width = 400;
-chuckChoice2.height = 392;
+	var lisaChoice1 = Object.create(spriteObject);
+	lisaChoice1.x = 70;
+	lisaChoice1.y = 250;
+	lisaChoice1.width = 400;
+	lisaChoice1.height = 231;
 
-var chuckChoice2Image = new Image();
-chuckChoice2Image.src = "images/chuckChoice2.png";
+	var lisaChoice1Image = new Image();
+	lisaChoice1Image.src = "images/lisaChoice1.png";
 
-var chuckChoice3 = Object.create(spriteObject);
-chuckChoice3.x = 70;
-chuckChoice3.y = 150;
-chuckChoice3.width = 400;
-chuckChoice3.height = 162;
+	var lisaChoice2 = Object.create(spriteObject);
+	lisaChoice2.x = 70;
+	lisaChoice2.y = 250;
+	lisaChoice2.width = 400;
+	lisaChoice2.height = 185;
 
-var chuckChoice3Image = new Image();
-chuckChoice3Image.src = "images/chuckChoice3.png";
+	var lisaChoice2Image = new Image();
+	lisaChoice2Image.src = "images/lisaChoice2.png";
 
-var chuckChoice4 = Object.create(spriteObject);
-chuckChoice4.x = 70;
-chuckChoice4.y = 150;
-chuckChoice4.width = 400;
-chuckChoice4.height = 116;
+	var lisaChoice3 = Object.create(spriteObject);
+	lisaChoice3.x = 70;
+	lisaChoice3.y = 250;
+	lisaChoice3.width = 400;
+	lisaChoice3.height = 254;
 
-var chuckChoice4Image = new Image();
-chuckChoice4Image.src = "images/chuckChoice4.png";
+	var lisaChoice3Image = new Image();
+	lisaChoice3Image.src = "images/lisaChoice3.png";
 
-//ROY'S CHOICES
+	var lisaChoice4 = Object.create(spriteObject);
+	lisaChoice4.x = 70;
+	lisaChoice4.y = 250;
+	lisaChoice4.width = 400;
+	lisaChoice4.height = 208;
 
-var royChoice1 = Object.create(spriteObject);
-royChoice1.x = 70;
-royChoice1.y = 250;
-royChoice1.width = 400;
-royChoice1.height = 182;
+	var lisaChoice4Image = new Image();
+	lisaChoice4Image.src = "images/lisaChoice4.png";
 
-var royChoice1Image = new Image();
-royChoice1Image.src = "images/royChoice1.png";
+	//BOB CHOICES
 
-var royChoice2 = Object.create(spriteObject);
-royChoice2.x = 70;
-royChoice2.y = 250;
-royChoice2.width = 400;
-royChoice2.height = 182;
+	var bobChoice1 = Object.create(spriteObject);
+	bobChoice1.x = 70;
+	bobChoice1.y = 250;
+	bobChoice1.width = 400;
+	bobChoice1.height = 185;
 
-var royChoice2Image = new Image();
-royChoice2Image.src = "images/royChoice2.png";
+	var bobChoice1Image = new Image();
+	bobChoice1Image.src = "images/bobChoice1.png";
 
-var royChoice3 = Object.create(spriteObject);
-royChoice3.x = 70;
-royChoice3.y = 250;
-royChoice3.width = 400;
-royChoice3.height = 296;
+	var bobChoice2 = Object.create(spriteObject);
+	bobChoice2.x = 70;
+	bobChoice2.y = 250;
+	bobChoice2.width = 400;
+	bobChoice2.height = 162;
 
-var royChoice3Image = new Image();
-royChoice3Image.src = "images/royChoice3.png";
+	var bobChoice2Image = new Image();
+	bobChoice2Image.src = "images/bobChoice2.png";
 
-//LISA'S CHOICES
+	var bobChoice3 = Object.create(spriteObject);
+	bobChoice3.x = 70;
+	bobChoice3.y = 250;
+	bobChoice3.width = 400;
+	bobChoice3.height = 185;
 
-var lisaChoice1 = Object.create(spriteObject);
-lisaChoice1.x = 70;
-lisaChoice1.y = 250;
-lisaChoice1.width = 400;
-lisaChoice1.height = 231;
+	var bobChoice3Image = new Image();
+	bobChoice3Image.src = "images/bobChoice3.png";
 
-var lisaChoice1Image = new Image();
-lisaChoice1Image.src = "images/lisaChoice1.png";
+	//LEO CHOICES
 
-var lisaChoice2 = Object.create(spriteObject);
-lisaChoice2.x = 70;
-lisaChoice2.y = 250;
-lisaChoice2.width = 400;
-lisaChoice2.height = 185;
+	var leoChoice1 = Object.create(spriteObject);
+	leoChoice1.x = 70;
+	leoChoice1.y = 250;
+	leoChoice1.width = 400;
+	leoChoice1.height = 230;
 
-var lisaChoice2Image = new Image();
-lisaChoice2Image.src = "images/lisaChoice2.png";
+	var leoChoice1Image = new Image();
+	leoChoice1Image.src = "images/leoChoice1.png";
 
-var lisaChoice3 = Object.create(spriteObject);
-lisaChoice3.x = 70;
-lisaChoice3.y = 250;
-lisaChoice3.width = 400;
-lisaChoice3.height = 254;
+	var leoChoice2 = Object.create(spriteObject);
+	leoChoice2.x = 70;
+	leoChoice2.y = 250;
+	leoChoice2.width = 400;
+	leoChoice2.height = 162;
 
-var lisaChoice3Image = new Image();
-lisaChoice3Image.src = "images/lisaChoice3.png";
+	var leoChoice2Image = new Image();
+	leoChoice2Image.src = "images/leoChoice2.png";
 
-var lisaChoice4 = Object.create(spriteObject);
-lisaChoice4.x = 70;
-lisaChoice4.y = 250;
-lisaChoice4.width = 400;
-lisaChoice4.height = 208;
+	var leoChoice3 = Object.create(spriteObject);
+	leoChoice3.x = 70;
+	leoChoice3.y = 250;
+	leoChoice3.width = 400;
+	leoChoice3.height = 162;
 
-var lisaChoice4Image = new Image();
-lisaChoice4Image.src = "images/lisaChoice4.png";
+	var leoChoice3Image = new Image();
+	leoChoice3Image.src = "images/leoChoice3.png";
 
-//BOB CHOICES
+	var leoChoice4 = Object.create(spriteObject);
+	leoChoice4.x = 70;
+	leoChoice4.y = 250;
+	leoChoice4.width = 400;
+	leoChoice4.height = 270;
 
-var bobChoice1 = Object.create(spriteObject);
-bobChoice1.x = 70;
-bobChoice1.y = 250;
-bobChoice1.width = 400;
-bobChoice1.height = 185;
+	var leoChoice4Image = new Image();
+	leoChoice4Image.src = "images/leoChoice4.png";
 
-var bobChoice1Image = new Image();
-bobChoice1Image.src = "images/bobChoice1.png";
+	//CAROL CHOICES
 
-var bobChoice2 = Object.create(spriteObject);
-bobChoice2.x = 70;
-bobChoice2.y = 250;
-bobChoice2.width = 400;
-bobChoice2.height = 162;
+	var carolChoice1 = Object.create(spriteObject);
+	carolChoice1.x = 70;
+	carolChoice1.y = 250;
+	carolChoice1.width = 490;
+	carolChoice1.height = 320;
 
-var bobChoice2Image = new Image();
-bobChoice2Image.src = "images/bobChoice2.png";
+	var carolChoice1Image = new Image();
+	carolChoice1Image.src = "images/carolChoice1.png";
 
-var bobChoice3 = Object.create(spriteObject);
-bobChoice3.x = 70;
-bobChoice3.y = 250;
-bobChoice3.width = 400;
-bobChoice3.height = 185;
+	var carolChoice2 = Object.create(spriteObject);
+	carolChoice2.x = 70;
+	carolChoice2.y = 250;
+	carolChoice2.width = 380;
+	carolChoice2.height = 200;
 
-var bobChoice3Image = new Image();
-bobChoice3Image.src = "images/bobChoice3.png";
+	var carolChoice2Image = new Image();
+	carolChoice2Image.src = "images/carolChoice2.png";
 
-//LEO CHOICES
+	var carolChoice3 = Object.create(spriteObject);
+	carolChoice3.x = 70;
+	carolChoice3.y = 250;
+	carolChoice3.width = 400;
+	carolChoice3.height = 229;
 
-var leoChoice1 = Object.create(spriteObject);
-leoChoice1.x = 70;
-leoChoice1.y = 250;
-leoChoice1.width = 400;
-leoChoice1.height = 230;
+	var carolChoice3Image = new Image();
+	carolChoice3Image.src = "images/carolChoice3.png";
 
-var leoChoice1Image = new Image();
-leoChoice1Image.src = "images/leoChoice1.png";
+	var carolChoice4 = Object.create(spriteObject);
+	carolChoice4.x = 70;
+	carolChoice4.y = 250;
+	carolChoice4.width = 400;
+	carolChoice4.height = 185;
 
-var leoChoice2 = Object.create(spriteObject);
-leoChoice2.x = 70;
-leoChoice2.y = 250;
-leoChoice2.width = 400;
-leoChoice2.height = 162;
+	var carolChoice4Image = new Image();
+	carolChoice4Image.src = "images/carolChoice4.png";
 
-var leoChoice2Image = new Image();
-leoChoice2Image.src = "images/leoChoice2.png";
+	var carolChoice5 = Object.create(spriteObject);
+	carolChoice5.x = 70;
+	carolChoice5.y = 250;
+	carolChoice5.width = 400;
+	carolChoice5.height = 135;
 
-var leoChoice3 = Object.create(spriteObject);
-leoChoice3.x = 70;
-leoChoice3.y = 250;
-leoChoice3.width = 400;
-leoChoice3.height = 162;
+	var carolChoice5Image = new Image();
+	carolChoice5Image.src = "images/carolChoice5.png";
 
-var leoChoice3Image = new Image();
-leoChoice3Image.src = "images/leoChoice3.png";
+	//CHAACTER IMAGES
 
-var leoChoice4 = Object.create(spriteObject);
-leoChoice4.x = 70;
-leoChoice4.y = 250;
-leoChoice4.width = 400;
-leoChoice4.height = 270;
+	var chuckPic = Object.create(spriteObject);
+	chuckPic.x = 550;
+	chuckPic.y = 0;
+	chuckPic.width = 442;
+	chuckPic.height = 549;
 
-var leoChoice4Image = new Image();
-leoChoice4Image.src = "images/leoChoice4.png";
+	var chuckPicImage = new Image();
+	chuckPicImage.src = "images/chuckImage.png";
 
-//CAROL CHOICES
+	var royPic = Object.create(spriteObject);
+	royPic.x = 550;
+	royPic.y = 0;
+	royPic.width = 442;
+	royPic.height = 549;
 
-var carolChoice1 = Object.create(spriteObject);
-carolChoice1.x = 70;
-carolChoice1.y = 250;
-carolChoice1.width = 490;
-carolChoice1.height = 320;
+	var royPicImage = new Image();
+	royPicImage.src = "images/royPic.png";
 
-var carolChoice1Image = new Image();
-carolChoice1Image.src = "images/carolChoice1.png";
+	var lisaPic = Object.create(spriteObject);
+	lisaPic.x = 550;
+	lisaPic.y = 0;
+	lisaPic.width = 442;
+	lisaPic.height = 549;
 
-var carolChoice2 = Object.create(spriteObject);
-carolChoice2.x = 70;
-carolChoice2.y = 250;
-carolChoice2.width = 380;
-carolChoice2.height = 200;
+	var lisaPicImage = new Image();
+	lisaPicImage.src = "images/lisaPic.png";
 
-var carolChoice2Image = new Image();
-carolChoice2Image.src = "images/carolChoice2.png";
+	var bobPic = Object.create(spriteObject);
+	bobPic.x = 550;
+	bobPic.y = 0;
+	bobPic.width = 442;
+	bobPic.height = 549;
 
-var carolChoice3 = Object.create(spriteObject);
-carolChoice3.x = 70;
-carolChoice3.y = 250;
-carolChoice3.width = 400;
-carolChoice3.height = 229;
+	var bobPicImage = new Image();
+	bobPicImage.src = "images/bobPic.png";
 
-var carolChoice3Image = new Image();
-carolChoice3Image.src = "images/carolChoice3.png";
+	var leoPic = Object.create(spriteObject);
+	leoPic.x = 550;
+	leoPic.y = 0;
+	leoPic.width = 442;
+	leoPic.height = 549;
 
-var carolChoice4 = Object.create(spriteObject);
-carolChoice4.x = 70;
-carolChoice4.y = 250;
-carolChoice4.width = 400;
-carolChoice4.height = 185;
+	var leoPicImage = new Image();
+	leoPicImage.src = "images/leoPic.png";
 
-var carolChoice4Image = new Image();
-carolChoice4Image.src = "images/carolChoice4.png";
+	var carolPic = Object.create(spriteObject);
+	carolPic.x = 550;
+	carolPic.y = 0;
+	carolPic.width = 442;
+	carolPic.height = 549;
 
-var carolChoice5 = Object.create(spriteObject);
-carolChoice5.x = 70;
-carolChoice5.y = 250;
-carolChoice5.width = 400;
-carolChoice5.height = 135;
+	var carolPicImage = new Image();
+	carolPicImage.src = "images/carolPic.png";
 
-var carolChoice5Image = new Image();
-carolChoice5Image.src = "images/carolChoice5.png";
 
-//CHAACTER IMAGES
 
-var chuckPic = Object.create(spriteObject);
-chuckPic.x = 550;
-chuckPic.y = 0;
-chuckPic.width = 442;
-chuckPic.height = 549;
 
-var chuckPicImage = new Image();
-chuckPicImage.src = "images/chuckImage.png";
-
-var royPic = Object.create(spriteObject);
-royPic.x = 550;
-royPic.y = 0;
-royPic.width = 442;
-royPic.height = 549;
-
-var royPicImage = new Image();
-royPicImage.src = "images/royPic.png";
-
-var lisaPic = Object.create(spriteObject);
-lisaPic.x = 550;
-lisaPic.y = 0;
-lisaPic.width = 442;
-lisaPic.height = 549;
-
-var lisaPicImage = new Image();
-lisaPicImage.src = "images/lisaPic.png";
-
-var bobPic = Object.create(spriteObject);
-bobPic.x = 550;
-bobPic.y = 0;
-bobPic.width = 442;
-bobPic.height = 549;
-
-var bobPicImage = new Image();
-bobPicImage.src = "images/bobPic.png";
-
-var leoPic = Object.create(spriteObject);
-leoPic.x = 550;
-leoPic.y = 0;
-leoPic.width = 442;
-leoPic.height = 549;
-
-var leoPicImage = new Image();
-leoPicImage.src = "images/leoPic.png";
-
-var carolPic = Object.create(spriteObject);
-carolPic.x = 550;
-carolPic.y = 0;
-carolPic.width = 442;
-carolPic.height = 549;
-
-var carolPicImage = new Image();
-carolPicImage.src = "images/carolPic.png";
-
-
-
-
-window.addEventListener("keydown", onKeyDown, false);
-window.addEventListener("keyup", onKeyUp, false);
+	window.addEventListener("keydown", onKeyDown, false);
+	window.addEventListener("keyup", onKeyUp, false);
 
 	function onKeyDown(event) {
 	
-		if (event.keyCode === 32 && disableSpace === false) {
+		if (event.keyCode === 32 && !disableSpace) {
 	
 			event.preventDefault();
 			page++;
@@ -792,76 +776,76 @@ window.addEventListener("keyup", onKeyUp, false);
 			royMove = true;
 			roy.vx = 8;
 		}
-		if (event.keyCode === 51 && page === 5 && bubbleSequence > 3 && timesUp1 === false) {
+		if (event.keyCode === 51 && page === 5 && bubbleSequence > 3 && !timesUp1) {
 			
 			event.preventDefault();
 			choice1 = "A";
 			page = 6;
 		}
 	
-		if (event.keyCode === 52 && page === 5 && bubbleSequence > 3 && timesUp1 === false) {
+		if (event.keyCode === 52 && page === 5 && bubbleSequence > 3 && !timesUp1) {
 	
 			event.preventDefault();
 			choice1 = "B";
 			page = 6;
 		}
 	
-		if (event.keyCode === 83 && page === 7 && bubbleSequence > 3 && timesUp2 === false) {
+		if (event.keyCode === 83 && page === 7 && bubbleSequence > 3 && !timesUp2) {
 	
 			event.preventDefault();
 			choice2 = "A";
 			page = 8;
 		}
 	
-		if (event.keyCode === 89 && page === 9 && bubbleSequence > 5 && timesUp3 === false) {
+		if (event.keyCode === 89 && page === 9 && bubbleSequence > 5 && !timesUp3) {
 	
 			event.preventDefault();
 			choice3 = "A";
 			page = 10;
 		}
 	
-		if (event.keyCode === 78 && page === 9 && bubbleSequence > 5 && timesUp3 === false) {
+		if (event.keyCode === 78 && page === 9 && bubbleSequence > 5 && !timesUp3) {
 		
 			event.preventDefault();
 			choice3 = "B";
 			page = 10;
 		}
 	
-		if (event.keyCode === 69 && page === 11 && bubbleSequence > 2 && timesUp4 === false) {
+		if (event.keyCode === 69 && page === 11 && bubbleSequence > 2 && !timesUp4) {
 	
 			event.preventDefault();
 			choice4 = "A";
 			page = 12;
 		}
 	
-		if (event.keyCode === 76 && page === 11 && bubbleSequence > 2 && timesUp4 === false) {
+		if (event.keyCode === 76 && page === 11 && bubbleSequence > 2 && !timesUp4) {
 	
 			event.preventDefault();
 			choice4 = "B";
 			page = 12;
 		}
 	
-		if (event.keyCode === 77 && page === 13 && timesUp5 === false) {
+		if (event.keyCode === 77 && page === 13 && !timesUp5) {
 		
 			event.preventDefault();
 			choice5 = "A";
 			page = 14;
 		}
 	
-		if (event.keyCode === 68 && page === 13 && timesUp5 === false) {
+		if (event.keyCode === 68 && page === 13 && !timesUp5) {
 	
 			event.preventDefault();
 			choice5 = "B";
 			page = 14;
 		}
-		if (event.keyCode === 69 && page === 15 && bubbleSequence > 3 && timesUp6 === false) {
+		if (event.keyCode === 69 && page === 15 && bubbleSequence > 3 && !timesUp6) {
 	
 			event.preventDefault();
 			choice6 = "A";
 			page = 16;
 		}
 	
-		if (event.keyCode === 87 && page === 15 && bubbleSequence > 3 && timesUp6 === false) {
+		if (event.keyCode === 87 && page === 15 && bubbleSequence > 3 && !timesUp6) {
 	
 			event.preventDefault();
 			choice6 = "B";
@@ -1551,3 +1535,4 @@ window.addEventListener("keyup", onKeyUp, false);
 	}
 	
 	update();
+})();
