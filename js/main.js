@@ -5,7 +5,8 @@
 	var canvas = document.getElementById("theCanvas"),
 		context = canvas.getContext("2d"),
 
-		page = 1,
+		currentPage = 1,
+		pages = [];
 		bubbleSequence = 1,
 
 		disableSpace = false,
@@ -57,8 +58,6 @@
 	var cedarvilleImage = new Image();
 	cedarvilleImage.src = "images/cedarville.png";
 
-	//INSTRUCTIONS 1
-
 	var instructions1 = Object.create(spriteObject);
 	instructions1.x = 30;
 	instructions1.y = 30;
@@ -67,8 +66,6 @@
 
 	var instructions1Image = new Image();
 	instructions1Image.src = "images/instructions1.png";
-
-	//INSTRUCTIONS 2
 
 	var instructions2 = Object.create(spriteObject);
 	instructions2.x = 30;
@@ -79,8 +76,6 @@
 	var instructions2Image = new Image();
 	instructions2Image.src = "images/instructions2.png";
 
-	//CAROL
-
 	var carol = Object.create(spriteObject);
 	carol.x = 30;
 	carol.y = 250;
@@ -89,8 +84,6 @@
 
 	var carolImage = new Image();
 	carolImage.src = "images/carol.png";
-
-	//ROY
 
 	var roy = Object.create(spriteObject);
 	roy.x = 200;
@@ -102,8 +95,6 @@
 	var royImage = new Image();
 	royImage.src = "images/roy.png";
 
-	//DOG
-
 	var dog = Object.create(spriteObject);
 	dog.x = 400;
 	dog.y = 300;
@@ -112,8 +103,6 @@
 
 	var dogImage = new Image();
 	dogImage.src = "images/dog.png";
-
-	//STREET
 
 	var street = Object.create(spriteObject);
 	street.x = -50;
@@ -124,8 +113,6 @@
 	var streetImage = new Image();
 	streetImage.src = "images/background1.png";
 
-	//HOTEL
-
 	var hotel = Object.create(spriteObject);
 	hotel.x = -50;
 	hotel.y = 0;
@@ -134,8 +121,6 @@
 
 	var hotelImage = new Image();
 	hotelImage.src = "images/hotel.png";
-
-	//HOTEL BUBBLE1
 
 	var hotelBubble1 = Object.create(spriteObject);
 	hotelBubble1.x = 270;
@@ -146,8 +131,6 @@
 	var hotelBubble1Image = new Image();
 	hotelBubble1Image.src = "images/hotelBubble1.png";
 
-	//HOTEL BUBBLE2
-
 	var hotelBubble2 = Object.create(spriteObject);
 	hotelBubble2.x = 170;
 	hotelBubble2.y = 120;
@@ -156,8 +139,6 @@
 
 	var hotelBubble2Image = new Image();
 	hotelBubble2Image.src = "images/hotelBubble2.png";
-
-	//HOTEL BUBBLE3
 
 	var hotelBubble3 = Object.create(spriteObject);
 	hotelBubble3.x = 270;
@@ -168,8 +149,6 @@
 	var hotelBubble3Image = new Image();
 	hotelBubble3Image.src = "images/hotelBubble3.png";
 
-	//STREET BUBBLE1
-
 	var streetBubble1 = Object.create(spriteObject);
 	streetBubble1.x = 360;
 	streetBubble1.y = 0;
@@ -178,8 +157,6 @@
 
 	var streetBubble1Image = new Image();
 	streetBubble1Image.src = "images/streetBubble1.png";
-
-	//STREET BUBBLE2
 
 	var streetBubble2 = Object.create(spriteObject);
 	streetBubble2.x = 70;
@@ -190,8 +167,6 @@
 	var streetBubble2Image = new Image();
 	streetBubble2Image.src = "images/streetBubble2.png";
 
-	//STREET BUBBLE3
-
 	var streetBubble3 = Object.create(spriteObject);
 	streetBubble3.x = -20;
 	streetBubble3.y = 0;
@@ -200,8 +175,6 @@
 
 	var streetBubble3Image = new Image();
 	streetBubble3Image.src = "images/streetBubble3.png";
-
-	//OFFICE BUBBLE 1
 
 	var officeBubble1 = Object.create(spriteObject);
 	officeBubble1.x = 340;
@@ -212,8 +185,6 @@
 	var officeBubble1Image = new Image();
 	officeBubble1Image.src = "images/officeBubble1.png";
 
-	//OFFICE BUBBLE 2
-
 	var officeBubble2 = Object.create(spriteObject);
 	officeBubble2.x = 80;
 	officeBubble2.y = 30;
@@ -222,9 +193,6 @@
 
 	var officeBubble2Image = new Image();
 	officeBubble2Image.src = "images/officeBubble2.png";
-
-
-	//OFFICE BUBBLE 3
 
 	var officeBubble3 = Object.create(spriteObject);
 	officeBubble3.x = 340;
@@ -235,8 +203,6 @@
 	var officeBubble3Image = new Image();
 	officeBubble3Image.src = "images/officeBubble3.png";
 
-	//OFFICE BUBBLE 4
-
 	var officeBubble4 = Object.create(spriteObject);
 	officeBubble4.x = 80;
 	officeBubble4.y = 30;
@@ -246,8 +212,6 @@
 	var officeBubble4Image = new Image();
 	officeBubble4Image.src = "images/officeBubble4.png";
 
-	//OFFICE BUBBLE 5
-
 	var officeBubble5 = Object.create(spriteObject);
 	officeBubble5.x = 340;
 	officeBubble5.y = 100;
@@ -256,7 +220,6 @@
 
 	var officeBubble5Image = new Image();
 	officeBubble5Image.src = "images/officeBubble5.png";
-
 
 	var chuck = Object.create(spriteObject);
 	chuck.x = 0;
@@ -286,8 +249,6 @@
 	var apartmentImage = new Image();
 	apartmentImage.src = "images/apartment.png";
 
-	//BOB'S WIFE
-
 	var wife = Object.create(spriteObject);
 	wife.x = 200;
 	wife.y = 170;
@@ -296,8 +257,6 @@
 
 	var wifeImage = new Image();
 	wifeImage.src = "images/wife.png";
-
-	//BOB
 
 	var bob = Object.create(spriteObject);
 	bob.x = 120;
@@ -308,8 +267,6 @@
 	var bobImage = new Image();
 	bobImage.src = "images/bob.png";
 
-	//APARTMENT BUBBLE 1
-
 	var apartmentBubble1 = Object.create(spriteObject);
 	apartmentBubble1.x = 180;
 	apartmentBubble1.y = 110;
@@ -318,8 +275,6 @@
 
 	var apartmentBubble1Image = new Image();
 	apartmentBubble1Image.src = "images/apartmentBubble1.png";
-
-	//APARTMENT BUBBLE 2
 
 	var apartmentBubble2 = Object.create(spriteObject);
 	apartmentBubble2.x = 180;
@@ -330,11 +285,6 @@
 	var apartmentBubble2Image = new Image();
 	apartmentBubble2Image.src = "images/apartmentBubble2.png";
 
-
-
-
-	//MAP
-
 	var map = Object.create(spriteObject);
 	map.x = 0;
 	map.y = 100;
@@ -343,8 +293,6 @@
 
 	var mapImage = new Image();
 	mapImage.src = "images/map.png";
-
-	//MAP BUBBLE 1
 
 	var mapBubble1 = Object.create(spriteObject);
 	mapBubble1.x = 60;
@@ -355,8 +303,6 @@
 	var mapBubble1Image = new Image();
 	mapBubble1Image.src = "images/mapBubble1.png";
 
-	//MAP BUBBLE 2
-
 	var mapBubble2 = Object.create(spriteObject);
 	mapBubble2.x = 180;
 	mapBubble2.y = 310;
@@ -366,8 +312,6 @@
 	var mapBubble2Image = new Image();
 	mapBubble2Image.src = "images/mapBubble2.png";
 
-	//SHED
-
 	var shed = Object.create(spriteObject);
 	shed.x = 0;
 	shed.y = 0;
@@ -376,8 +320,6 @@
 
 	var shedImage = new Image();
 	shedImage.src = "images/shed.png";
-
-	//SHED BUBBLE 1
 
 	var shedBubble1 = Object.create(spriteObject);
 	shedBubble1.x = 70;
@@ -397,7 +339,6 @@
 	var shedBubble2Image = new Image();
 	shedBubble2Image.src = "images/shedBubble2.png";
 
-
 	var shedBubble3 = Object.create(spriteObject);
 	shedBubble3.x = 70;
 	shedBubble3.y = 0;
@@ -406,8 +347,6 @@
 
 	var shedBubble3Image = new Image();
 	shedBubble3Image.src = "images/shedBubble3.png";
-
-	//CHUCK TITLE
 
 	var chuckTitle = Object.create(spriteObject);
 	chuckTitle.x = 70;
@@ -418,8 +357,6 @@
 	var chuckTitleImage = new Image();
 	chuckTitleImage.src = "images/chuckTitle.png";
 
-	//ROY TITLE
-
 	var royTitle = Object.create(spriteObject);
 	royTitle.x = 70;
 	royTitle.y = 60;
@@ -428,8 +365,6 @@
 
 	var royTitleImage = new Image();
 	royTitleImage.src = "images/royTitle.png";
-
-	//LISA TITLE
 
 	var lisaTitle = Object.create(spriteObject);
 	lisaTitle.x = 70;
@@ -440,8 +375,6 @@
 	var lisaTitleImage = new Image();
 	lisaTitleImage.src = "images/lisaTitle.png";
 
-	//BOB TITLE
-
 	var bobTitle = Object.create(spriteObject);
 	bobTitle.x = 120;
 	bobTitle.y = 60;
@@ -450,8 +383,6 @@
 
 	var bobTitleImage = new Image();
 	bobTitleImage.src = "images/bobTitle.png";
-
-	//LEO TITLE
 
 	var leoTitle = Object.create(spriteObject);
 	leoTitle.x = 50;
@@ -462,8 +393,6 @@
 	var leoTitleImage = new Image();
 	leoTitleImage.src = "images/leoTitle.png";
 
-	//CAROL TITLE
-
 	var carolTitle = Object.create(spriteObject);
 	carolTitle.x = 70;
 	carolTitle.y = 60;
@@ -472,8 +401,6 @@
 
 	var carolTitleImage = new Image();
 	carolTitleImage.src = "images/carolTitle.png";
-
-	//CHUCK CHOICES
 
 	var chuckChoice1 = Object.create(spriteObject);
 	chuckChoice1.x = 70;
@@ -511,8 +438,6 @@
 	var chuckChoice4Image = new Image();
 	chuckChoice4Image.src = "images/chuckChoice4.png";
 
-	//ROY'S CHOICES
-
 	var royChoice1 = Object.create(spriteObject);
 	royChoice1.x = 70;
 	royChoice1.y = 250;
@@ -539,8 +464,6 @@
 
 	var royChoice3Image = new Image();
 	royChoice3Image.src = "images/royChoice3.png";
-
-	//LISA'S CHOICES
 
 	var lisaChoice1 = Object.create(spriteObject);
 	lisaChoice1.x = 70;
@@ -578,8 +501,6 @@
 	var lisaChoice4Image = new Image();
 	lisaChoice4Image.src = "images/lisaChoice4.png";
 
-	//BOB CHOICES
-
 	var bobChoice1 = Object.create(spriteObject);
 	bobChoice1.x = 70;
 	bobChoice1.y = 250;
@@ -606,8 +527,6 @@
 
 	var bobChoice3Image = new Image();
 	bobChoice3Image.src = "images/bobChoice3.png";
-
-	//LEO CHOICES
 
 	var leoChoice1 = Object.create(spriteObject);
 	leoChoice1.x = 70;
@@ -644,8 +563,6 @@
 
 	var leoChoice4Image = new Image();
 	leoChoice4Image.src = "images/leoChoice4.png";
-
-	//CAROL CHOICES
 
 	var carolChoice1 = Object.create(spriteObject);
 	carolChoice1.x = 70;
@@ -691,8 +608,6 @@
 
 	var carolChoice5Image = new Image();
 	carolChoice5Image.src = "images/carolChoice5.png";
-
-	//CHAACTER IMAGES
 
 	var chuckPic = Object.create(spriteObject);
 	chuckPic.x = 550;
@@ -750,16 +665,12 @@
 
 
 
-
-	window.addEventListener("keydown", onKeyDown, false);
-	window.addEventListener("keyup", onKeyUp, false);
-
 	function onKeyDown(event) {
 	
 		if (event.keyCode === 32 && !disableSpace) {
 	
 			event.preventDefault();
-			page++;
+			currentPage++;
 			bubbleSequence = 1;
 		}
 	
@@ -776,80 +687,80 @@
 			royMove = true;
 			roy.vx = 8;
 		}
-		if (event.keyCode === 51 && page === 5 && bubbleSequence > 3 && !timesUp1) {
+		if (event.keyCode === 51 && currentPage === 5 && bubbleSequence > 3 && !timesUp1) {
 			
 			event.preventDefault();
 			choice1 = "A";
-			page = 6;
+			currentPage = 6;
 		}
 	
-		if (event.keyCode === 52 && page === 5 && bubbleSequence > 3 && !timesUp1) {
+		if (event.keyCode === 52 && currentPage === 5 && bubbleSequence > 3 && !timesUp1) {
 	
 			event.preventDefault();
 			choice1 = "B";
-			page = 6;
+			currentPage = 6;
 		}
 	
-		if (event.keyCode === 83 && page === 7 && bubbleSequence > 3 && !timesUp2) {
+		if (event.keyCode === 83 && currentPage === 7 && bubbleSequence > 3 && !timesUp2) {
 	
 			event.preventDefault();
 			choice2 = "A";
-			page = 8;
+			currentPage = 8;
 		}
 	
-		if (event.keyCode === 89 && page === 9 && bubbleSequence > 5 && !timesUp3) {
+		if (event.keyCode === 89 && currentPage === 9 && bubbleSequence > 5 && !timesUp3) {
 	
 			event.preventDefault();
 			choice3 = "A";
-			page = 10;
+			currentPage = 10;
 		}
 	
-		if (event.keyCode === 78 && page === 9 && bubbleSequence > 5 && !timesUp3) {
+		if (event.keyCode === 78 && currentPage === 9 && bubbleSequence > 5 && !timesUp3) {
 		
 			event.preventDefault();
 			choice3 = "B";
-			page = 10;
+			currentPage = 10;
 		}
 	
-		if (event.keyCode === 69 && page === 11 && bubbleSequence > 2 && !timesUp4) {
+		if (event.keyCode === 69 && currentPage === 11 && bubbleSequence > 2 && !timesUp4) {
 	
 			event.preventDefault();
 			choice4 = "A";
-			page = 12;
+			currentPage = 12;
 		}
 	
-		if (event.keyCode === 76 && page === 11 && bubbleSequence > 2 && !timesUp4) {
+		if (event.keyCode === 76 && currentPage === 11 && bubbleSequence > 2 && !timesUp4) {
 	
 			event.preventDefault();
 			choice4 = "B";
-			page = 12;
+			currentPage = 12;
 		}
 	
-		if (event.keyCode === 77 && page === 13 && !timesUp5) {
+		if (event.keyCode === 77 && currentPage === 13 && !timesUp5) {
 		
 			event.preventDefault();
 			choice5 = "A";
-			page = 14;
+			currentPage = 14;
 		}
 	
-		if (event.keyCode === 68 && page === 13 && !timesUp5) {
+		if (event.keyCode === 68 && currentPage === 13 && !timesUp5) {
 	
 			event.preventDefault();
 			choice5 = "B";
-			page = 14;
+			currentPage = 14;
 		}
-		if (event.keyCode === 69 && page === 15 && bubbleSequence > 3 && !timesUp6) {
+		if (event.keyCode === 69 && currentPage === 15 && bubbleSequence > 3 && !timesUp6) {
 	
 			event.preventDefault();
 			choice6 = "A";
-			page = 16;
+			currentPage = 16;
 		}
 	
-		if (event.keyCode === 87 && page === 15 && bubbleSequence > 3 && !timesUp6) {
+		if (event.keyCode === 87 && currentPage === 15 && bubbleSequence > 3 && !timesUp6) {
 	
 			event.preventDefault();
 			choice6 = "B";
-			page = 16;
+			currentPage = 16;
 		}
 
 		if (event.keyCode === 65) {
@@ -928,15 +839,50 @@
 			window.setTimeout(countdown6,1000);
 		}
 	}
-
+	
+	
+	
+	function init() {
+	
+		fillPageArray();
+	
+		window.addEventListener("keydown", onKeyDown, false);
+		window.addEventListener("keyup", onKeyUp, false);
+	}
+	
+	function fillPageArray() {
+		
+		for (var i = 1; i < 30; i++) {
+			pages.push(i);	
+		}	
+	}
+	
+	console.log(pages);
 
 	function update() {
-		
+			
 		context.clearRect(0,0,canvas.width,canvas.height);
 		window.setTimeout(update,103);
+		checkCurrentPage();
+	}
+	
+	function checkCurrentPage() {
 
+		var pageFound = false;
 		
-		if (page === 1) {
+		if (!pageFound) {
+			for (var i = 0; i < pages.length; i++) {
+				if (i === currentPage) {
+					pageFound = true;
+					renderCurrentPage(i);
+				}
+			}
+		}
+	}
+	
+	function renderCurrentPage(pageNumber) {
+
+		if (pageNumber === 1) {
 		
 			context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
 		
@@ -953,7 +899,7 @@
 			context.fillText("Made for Ludum Dare 27",450,350);
 		}
 			
-		if (page === 2) {
+		if (pageNumber === 2) {
 		
 			context.drawImage(instructions1Image,instructions1.x,instructions1.y,instructions1.width,instructions1.height);
 		
@@ -961,7 +907,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 			
-		if (page === 3) {
+		if (pageNumber === 3) {
 		
 			context.drawImage(instructions2Image,instructions2.x,instructions2.y,instructions2.width,instructions2.height);
 		
@@ -969,7 +915,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 4) {
+		if (pageNumber === 4) {
 		
 			context.font = "70px verdana";
 			context.fillText("\"CHUCK\"",100,230);
@@ -977,7 +923,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 5) {
+		if (pageNumber === 5) {
 		
 			window.removeEventListener("keydown", onKeyDown, false);
 			context.drawImage(hotelImage,hotel.x,hotel.y,hotel.width,hotel.height);
@@ -1046,7 +992,7 @@
 		}
 		
 		
-		if (page === 6) {
+		if (pageNumber === 6) {
 		
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1055,7 +1001,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 7) {
+		if (pageNumber === 7) {
 		
 			roy.x += roy.vx;
 		
@@ -1122,7 +1068,7 @@
 		}
 		
 		
-		if (page === 8) {
+		if (pageNumber === 8) {
 			disableSpace = false;
 			context.font = "70px verdana";
 			context.fillText("\"LISA\"",130,230);
@@ -1130,7 +1076,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 9) {
+		if (pageNumber === 9) {
 		
 			disableSpace = true;
 			context.drawImage(officeImage,office.x,office.y,office.width,office.height);
@@ -1179,7 +1125,7 @@
 			}
 		}
 		
-		if (page === 10) {
+		if (pageNumber === 10) {
 			
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1188,7 +1134,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 11) {
+		if (pageNumber === 11) {
 		
 			disableSpace = true;
 			context.drawImage(apartmentImage,apartment.x,apartment.y,apartment.width,apartment.height);
@@ -1244,7 +1190,7 @@
 			}
 		}
 		
-		if (page === 12) {
+		if (pageNumber === 12) {
 			disableSpace = false;
 			context.font = "70px verdana";
 			context.fillText("\"LEO\"",140,230);
@@ -1252,7 +1198,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 13) {
+		if (pageNumber === 13) {
 		
 			disableSpace = true;
 			context.drawImage(mapImage,map.x,map.y,map.width,map.height);
@@ -1299,7 +1245,7 @@
 			}
 		}
 		
-		if (page === 14) {
+		if (pageNumber === 14) {
 		
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1308,7 +1254,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 
-		if (page === 15) {
+		if (pageNumber === 15) {
 		
 			disableSpace = true;
 			context.drawImage(shedImage,shed.x,shed.y,shed.width,shed.height);
@@ -1353,7 +1299,7 @@
 			context.drawImage(carolImage,carol.sourceX,carol.sourceY,carol.width,carol.height,carol.x,carol.y,carol.width,carol.height);
 		}
 		
-		if (page === 16) {
+		if (pageNumber === 16) {
 			
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1362,7 +1308,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",75,430);
 		}
 
-		if (page === 17) {
+		if (pageNumber === 17) {
 			
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1371,7 +1317,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 18) {
+		if (pageNumber === 18) {
 		
 			context.drawImage(chuckTitleImage,chuckTitle.x,chuckTitle.y,chuckTitle.width,chuckTitle.height);
 		
@@ -1389,7 +1335,7 @@
 			}
 		}	
 
-		if (page === 19) {
+		if (pageNumber === 19) {
 		
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1398,7 +1344,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 20) {
+		if (pageNumber === 20) {
 		
 			context.drawImage(royTitleImage,royTitle.x,royTitle.y,royTitle.width,royTitle.height);
 		
@@ -1413,7 +1359,7 @@
 			}
 		}
 		
-		if (page === 21) {
+		if (pageNumber === 21) {
 			
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1421,7 +1367,7 @@
 			context.font = "30px verdana";
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
-		if (page === 22) {
+		if (pageNumber === 22) {
 			
 			context.drawImage(lisaTitleImage,lisaTitle.x,lisaTitle.y,lisaTitle.width,lisaTitle.height);
 		
@@ -1438,7 +1384,7 @@
 				context.drawImage(lisaChoice4Image,lisaChoice4.x,lisaChoice4.y,lisaChoice4.width,lisaChoice4.height);
 			}
 		}
-		if (page === 23) {
+		if (pageNumber === 23) {
 		
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1446,7 +1392,7 @@
 			context.font = "30px verdana";
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
-		if (page === 24) {
+		if (pageNumber === 24) {
 
 			context.drawImage(bobTitleImage,bobTitle.x,bobTitle.y,bobTitle.width,bobTitle.height);
 		
@@ -1461,7 +1407,7 @@
 			}	
 		}
 		
-		if (page === 25) {
+		if (pageNumber === 25) {
 		
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1470,7 +1416,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 26) {
+		if (pageNumber === 26) {
 
 			context.drawImage(leoTitleImage,leoTitle.x,leoTitle.y,leoTitle.width,leoTitle.height);
 		
@@ -1488,7 +1434,7 @@
 			}
 		}
 		
-		if (page === 27) {
+		if (pageNumber === 27) {
 			
 			disableSpace = false;
 			context.font = "70px verdana";
@@ -1497,7 +1443,7 @@
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
-		if (page === 28) {
+		if (pageNumber === 28) {
 
 			context.drawImage(carolTitleImage,carolTitle.x,carolTitle.y,carolTitle.width,carolTitle.height);
 		
@@ -1521,7 +1467,7 @@
 			}
 		}
 		
-		if (page === 29) {
+		if (pageNumber === 29) {
 		
 			disableSpace = true;
 			context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
@@ -1532,7 +1478,10 @@
 			context.font = "30px verdana";
 			context.fillText("THE END",35,430);
 		}
+		
+		
 	}
 	
+	init();
 	update();
 })();
