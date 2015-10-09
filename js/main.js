@@ -1,45 +1,9 @@
-var beat = document.querySelector("#theme");
-var crickets = document.querySelector("#crickets");
+
+
+
 
 var canvas = document.getElementById("theCanvas");
 var context = canvas.getContext("2d");
-
-var spriteObject = {
-	sourceX: 0,
-	sourceY: 0,
-	sourceWidth: 0,
-	sourceHeight: 0,
-	width: 20,
-	height: 20,
-	x: 0,
-	y: 0,
-	vx: 0,
-	vy: 0,
-	scrubbing: 0,
-	accelerationX: 0, 
-	accelerationY: 0,
-	speed: 3, 
-	rotationSpeed: 0.3,
-	speedLimit: 5, 
-	friction: 0.96,
-
-	centerX: function()
-	{
-	return this.x + (this.width / 2);
-	},
-	centerY: function()
-	{
-	return this.y + (this.height / 2);
-	},
-	halfWidth: function()
-	{
-	return this.width / 2;
-	},
-	halfHeight: function()
-	{
-	return this.height / 2;
-	}
-};
 
 var page = 1;
 var bubbleSequence = 1;
@@ -85,6 +49,7 @@ var counter6 = 10;
 var timerPlay6 = true;
 var timesUp6 = false;
 
+var beat = document.getElementById("theme");
 
 
 
@@ -805,806 +770,784 @@ carolPicImage.src = "images/carolPic.png";
 window.addEventListener("keydown", onKeyDown, false);
 window.addEventListener("keyup", onKeyUp, false);
 
-function onKeyDown(event)
-{
-if(event.keyCode === 32 && disableSpace === false)
-{
-event.preventDefault();
-page++;
-bubbleSequence = 1;
-}
-if(event.keyCode === 37)
-{
-event.preventDefault();
-royMove = true;
-roy.vx = -8;
-}
-if(event.keyCode === 39)
-{
-event.preventDefault();
-royMove = true;
-roy.vx = 8;
-}
-if(event.keyCode === 51 && page === 5 && bubbleSequence > 3 && timesUp1 === false)
-{
-event.preventDefault();
-choice1 = "A";
-page = 6;
-}
-if(event.keyCode === 52 && page === 5 && bubbleSequence > 3 && timesUp1 === false)
-{
-event.preventDefault();
-choice1 = "B";
-page = 6;
-}
-if(event.keyCode === 83 && page === 7 && bubbleSequence > 3 && timesUp2 === false)
-{
-event.preventDefault();
-choice2 = "A";
-page = 8;
-}
-if(event.keyCode === 89 && page === 9 && bubbleSequence > 5 && timesUp3 === false)
-{
-event.preventDefault();
-choice3 = "A";
-page = 10;
-}
-if(event.keyCode === 78 && page === 9 && bubbleSequence > 5 && timesUp3 === false)
-{
-event.preventDefault();
-choice3 = "B";
-page = 10;
-}
-if(event.keyCode === 69 && page === 11 && bubbleSequence > 2 && timesUp4 === false)
-{
-event.preventDefault();
-choice4 = "A";
-page = 12;
-}
-if(event.keyCode === 76 && page === 11 && bubbleSequence > 2 && timesUp4 === false)
-{
-event.preventDefault();
-choice4 = "B";
-page = 12;
-}
-if(event.keyCode === 77 && page === 13 && timesUp5 === false)
-{
-event.preventDefault();
-choice5 = "A";
-page = 14;
-}
-if(event.keyCode === 68 && page === 13 && timesUp5 === false)
-{
-event.preventDefault();
-choice5 = "B";
-page = 14;
-}
-if(event.keyCode === 69 && page === 15 && bubbleSequence > 3 && timesUp6 === false)
-{
-event.preventDefault();
-choice6 = "A";
-page = 16;
-}
-if(event.keyCode === 87 && page === 15 && bubbleSequence > 3 && timesUp6 === false)
-{
-event.preventDefault();
-choice6 = "B";
-page = 16;
-}
-
-if(event.keyCode === 65)
-{
-event.preventDefault();
-bubbleSequence++;
-}
-}
-
-function onKeyUp(event)
-{
-if(event.keyCode === 32)
-{
-
-}
-if(event.keyCode === 37)
-{
-royMove = false;
-roy.vx = 0;
-}
-if(event.keyCode === 39)
-{
-royMove = false;
-roy.vx = 0;
-
-}
-}
-
-
-function countdown1()
-{
-if(counter1 > 0)
-{
-counter1--;
-timerPlay1 = false;
-window.setTimeout(countdown1,1000);
-}
-}
-
-function countdown2()
-{
-if(counter2 > 0)
-{
-counter2--;
-timerPlay2 = false;
-window.setTimeout(countdown2,1000);
-}
-}
-
-function countdown3()
-{
-if(counter3 > 0)
-{
-counter3--;
-timerPlay3 = false;
-window.setTimeout(countdown3,1000);
-}
-}
-
-function countdown4()
-{
-if(counter4 > 0)
-{
-counter4--;
-timerPlay4 = false;
-window.setTimeout(countdown4,1000);
-}
-}
-
-function countdown5()
-{
-if(counter5 > 0)
-{
-counter5--;
-timerPlay5 = false;
-window.setTimeout(countdown5,1000);
-}
-}
-
-function countdown6()
-{
-if(counter6 > 0)
-{
-counter6--;
-timerPlay6 = false;
-window.setTimeout(countdown6,1000);
-}
-}
-
-
-update();
-
-function update() {
-	context.clearRect(0,0,canvas.width,canvas.height);
-	window.setTimeout(update,103);
-
-	console.log(choice1,choice2,choice3,choice4,choice5,choice6);
+	function onKeyDown(event) {
 	
-	//PAGE 1 (TITLE)
+		if (event.keyCode === 32 && disableSpace === false) {
 	
-	if (page === 1) {
-	
-		context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
-	
-		context.font = "40px verdana";
-		context.fillStyle = "000000";
-		context.fillText("CEDARVILLE",197,70);
-	
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO START",35,430);
-	
-		context.font = "20px verdana";
-		context.fillText("A game by Warm Sea Orchard",450,150);
-		context.fillText("code/artwork/story by Ben Savage",450,250);
-		context.fillText("Made for Ludum Dare 27",450,350);
-	}
-		
-	if (page === 2) {
-	
-		context.drawImage(instructions1Image,instructions1.x,instructions1.y,instructions1.width,instructions1.height);
-	
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-		
-	if (page === 3) {
-	
-		context.drawImage(instructions2Image,instructions2.x,instructions2.y,instructions2.width,instructions2.height);
-	
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 4) {
-	
-		context.font = "70px verdana";
-		context.fillText("\"CHUCK\"",100,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 5) {
-	
-		window.removeEventListener("keydown", onKeyDown, false);
-		context.drawImage(hotelImage,hotel.x,hotel.y,hotel.width,hotel.height);
-		context.drawImage(chuckImage,chuck.sourceX,chuck.sourceY,chuck.width,chuck.height,chuck.x,chuck.y,chuck.width,chuck.height);
-	
-		chuck.vx = 8;
-	
-		if (chuck.x < 200) {
-			chuck.x += chuck.vx;
+			event.preventDefault();
+			page++;
+			bubbleSequence = 1;
 		}
 	
-		chuck.sourceX += 155;
-	
-		if (chuck.sourceX === 310) {
-			chuck.sourceX = 0;
+		if (event.keyCode === 37) {
+			
+			event.preventDefault();
+			royMove = true;
+			roy.vx = -8;
 		}
 	
-		if (chuck.x === 200) {
-			chuck.x = 200;
-			chuck.sourceX = 0;
-			window.addEventListener("keydown", onKeyDown, false);
+		if (event.keyCode === 39) {
+			
+			event.preventDefault();
+			royMove = true;
+			roy.vx = 8;
+		}
+		if (event.keyCode === 51 && page === 5 && bubbleSequence > 3 && timesUp1 === false) {
+			
+			event.preventDefault();
+			choice1 = "A";
+			page = 6;
+		}
 	
-			if (bubbleSequence <= 3) {
-				context.fillText("PRESS THE A KEY TO ADVANCE",35,480);
-				disableSpace = true;
+		if (event.keyCode === 52 && page === 5 && bubbleSequence > 3 && timesUp1 === false) {
+	
+			event.preventDefault();
+			choice1 = "B";
+			page = 6;
+		}
+	
+		if (event.keyCode === 83 && page === 7 && bubbleSequence > 3 && timesUp2 === false) {
+	
+			event.preventDefault();
+			choice2 = "A";
+			page = 8;
+		}
+	
+		if (event.keyCode === 89 && page === 9 && bubbleSequence > 5 && timesUp3 === false) {
+	
+			event.preventDefault();
+			choice3 = "A";
+			page = 10;
+		}
+	
+		if (event.keyCode === 78 && page === 9 && bubbleSequence > 5 && timesUp3 === false) {
+		
+			event.preventDefault();
+			choice3 = "B";
+			page = 10;
+		}
+	
+		if (event.keyCode === 69 && page === 11 && bubbleSequence > 2 && timesUp4 === false) {
+	
+			event.preventDefault();
+			choice4 = "A";
+			page = 12;
+		}
+	
+		if (event.keyCode === 76 && page === 11 && bubbleSequence > 2 && timesUp4 === false) {
+	
+			event.preventDefault();
+			choice4 = "B";
+			page = 12;
+		}
+	
+		if (event.keyCode === 77 && page === 13 && timesUp5 === false) {
+		
+			event.preventDefault();
+			choice5 = "A";
+			page = 14;
+		}
+	
+		if (event.keyCode === 68 && page === 13 && timesUp5 === false) {
+	
+			event.preventDefault();
+			choice5 = "B";
+			page = 14;
+		}
+		if (event.keyCode === 69 && page === 15 && bubbleSequence > 3 && timesUp6 === false) {
+	
+			event.preventDefault();
+			choice6 = "A";
+			page = 16;
+		}
+	
+		if (event.keyCode === 87 && page === 15 && bubbleSequence > 3 && timesUp6 === false) {
+	
+			event.preventDefault();
+			choice6 = "B";
+			page = 16;
+		}
+
+		if (event.keyCode === 65) {
+	
+			event.preventDefault();
+			bubbleSequence++;
+		}
+	}
+
+	function onKeyUp(event)	{
+		
+		if (event.keyCode === 37) {
+			
+			royMove = false;
+			roy.vx = 0;
+		}
+		if (event.keyCode === 39) {
+			
+			royMove = false;
+			roy.vx = 0;
+
+		}
+	}
+
+
+	function countdown1() {
+	
+		if (counter1 > 0) {
+			counter1--;
+			timerPlay1 = false;
+			window.setTimeout(countdown1,1000);
+		}
+	}
+
+	function countdown2() {
+	
+		if (counter2 > 0) {
+			counter2--;
+			timerPlay2 = false;
+			window.setTimeout(countdown2,1000);
+		}
+	}
+
+	function countdown3() {
+	
+		if (counter3 > 0) {
+			counter3--;
+			timerPlay3 = false;
+			window.setTimeout(countdown3,1000);
+		}
+	}
+
+	function countdown4() {
+	
+		if (counter4 > 0) {
+			counter4--;
+			timerPlay4 = false;
+			window.setTimeout(countdown4,1000);
+		}
+	}
+
+	function countdown5() {
+	
+		if (counter5 > 0) {
+			counter5--;
+			timerPlay5 = false;
+			window.setTimeout(countdown5,1000);
+		}
+	}
+
+	function countdown6() {
+	
+		if (counter6 > 0) {
+			counter6--;
+			timerPlay6 = false;
+			window.setTimeout(countdown6,1000);
+		}
+	}
+
+
+	function update() {
+		
+		context.clearRect(0,0,canvas.width,canvas.height);
+		window.setTimeout(update,103);
+
+		
+		if (page === 1) {
+		
+			context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
+		
+			context.font = "40px verdana";
+			context.fillStyle = "000000";
+			context.fillText("CEDARVILLE",197,70);
+		
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO START",35,430);
+		
+			context.font = "20px verdana";
+			context.fillText("A game by Warm Sea Orchard",450,150);
+			context.fillText("code/artwork/story by Ben Savage",450,250);
+			context.fillText("Made for Ludum Dare 27",450,350);
+		}
+			
+		if (page === 2) {
+		
+			context.drawImage(instructions1Image,instructions1.x,instructions1.y,instructions1.width,instructions1.height);
+		
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+			
+		if (page === 3) {
+		
+			context.drawImage(instructions2Image,instructions2.x,instructions2.y,instructions2.width,instructions2.height);
+		
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 4) {
+		
+			context.font = "70px verdana";
+			context.fillText("\"CHUCK\"",100,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 5) {
+		
+			window.removeEventListener("keydown", onKeyDown, false);
+			context.drawImage(hotelImage,hotel.x,hotel.y,hotel.width,hotel.height);
+			context.drawImage(chuckImage,chuck.sourceX,chuck.sourceY,chuck.width,chuck.height,chuck.x,chuck.y,chuck.width,chuck.height);
+		
+			chuck.vx = 8;
+		
+			if (chuck.x < 200) {
+				chuck.x += chuck.vx;
 			}
-	
+		
+			chuck.sourceX += 155;
+		
+			if (chuck.sourceX === 310) {
+				chuck.sourceX = 0;
+			}
+		
+			if (chuck.x === 200) {
+				chuck.x = 200;
+				chuck.sourceX = 0;
+				window.addEventListener("keydown", onKeyDown, false);
+		
+				if (bubbleSequence <= 3) {
+					context.fillText("PRESS THE A KEY TO ADVANCE",35,480);
+					disableSpace = true;
+				}
+		
+				if (bubbleSequence === 1) {
+					context.drawImage(hotelBubble1Image,hotelBubble1.x,hotelBubble1.y,hotelBubble1.width,hotelBubble1.height);
+				}
+				if (bubbleSequence === 2) {
+					context.drawImage(hotelBubble2Image,hotelBubble2.x,hotelBubble2.y,hotelBubble2.width,hotelBubble2.height);
+				}
+				if (bubbleSequence === 3) {
+					context.drawImage(hotelBubble3Image,hotelBubble3.x,hotelBubble3.y,hotelBubble3.width,hotelBubble3.height);
+				}
+				if (bubbleSequence > 3) {
+			
+					context.font = "30px verdana";
+					context.fillText("WHAT DO YOU DO NEXT?",550,50);
+					context.fillText("Press 3 to stay for three nights.",550,200);
+					context.fillText("Press 4 to stay for four nights.",550,300);
+
+					beat.play();
+					
+					context.font = "70px verdana";
+					context.fillText(counter1,740,400);
+		
+					if (timerPlay1 === true) {
+						countdown1();
+					}
+					if (counter1 === 0) {
+						
+						var randomChoice1 = Math.floor(Math.random() * randomArray.length);
+						timesUp1 = true;
+						
+						choice1 = randomArray[randomChoice1];
+
+						disableSpace = false;
+		
+						context.font = "30px verdana";
+						context.fillText("PRESS SPACE TO ADVANCE",35,470);
+					}
+				}
+			}
+		}
+		
+		
+		if (page === 6) {
+		
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"ROY\"",140,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 7) {
+		
+			roy.x += roy.vx;
+		
+			if (royMove === true) {
+				roy.sourceX += 110;
+			
+				if (roy.sourceX === 220) {
+					roy.sourceX = 0;
+				}
+			}
+		
+			if (royMove === false) {
+				roy.sourceX = 0;
+			}
+		
+			dog.sourceX += 150;
+		
+			if (dog.sourceX === 300) {
+				dog.sourceX = 0;
+			}
+		
+			context.drawImage(streetImage,street.x,street.y,street.width,street.height);
+			context.drawImage(dogImage,dog.sourceX,dog.sourceY,dog.width,dog.height,dog.x,dog.y,dog.width,dog.height);
+			context.drawImage(royImage,roy.sourceX,roy.sourceY,roy.width,roy.height,roy.x,roy.y,roy.width,roy.height);
+		
 			if (bubbleSequence === 1) {
-				context.drawImage(hotelBubble1Image,hotelBubble1.x,hotelBubble1.y,hotelBubble1.width,hotelBubble1.height);
+				context.drawImage(streetBubble1Image,streetBubble1.x,streetBubble1.y,streetBubble1.width,streetBubble1.height);
 			}
 			if (bubbleSequence === 2) {
-				context.drawImage(hotelBubble2Image,hotelBubble2.x,hotelBubble2.y,hotelBubble2.width,hotelBubble2.height);
+				context.drawImage(streetBubble2Image,streetBubble2.x,streetBubble2.y,streetBubble2.width,streetBubble2.height);
 			}
 			if (bubbleSequence === 3) {
-				context.drawImage(hotelBubble3Image,hotelBubble3.x,hotelBubble3.y,hotelBubble3.width,hotelBubble3.height);
+				context.drawImage(streetBubble3Image,streetBubble3.x,streetBubble3.y,streetBubble3.width,streetBubble3.height);
 			}
 			if (bubbleSequence > 3) {
-		
 				context.font = "30px verdana";
-				context.fillText("WHAT DO YOU DO NEXT?",550,50);
-				context.fillText("Press 3 to stay for three nights.",550,200);
-				context.fillText("Press 4 to stay for four nights.",550,300);
-
+				context.fillText("WHAT DO YOU DO NEXT?",560,50);
+				context.fillText("Press the S key to shoot the dog.",550,200);
+				context.fillText("Wait and let the dog escape.",550,300);
+		
 				beat.play();
-				
 				context.font = "70px verdana";
-				context.fillText(counter1,740,400);
-	
-				if (timerPlay1 === true) {
-					countdown1();
+				context.fillText(counter2,740,400);
+		
+				if (timerPlay2 === true) {
+					countdown2();
 				}
-				if (counter1 === 0) {
-					
-					var randomChoice1 = Math.floor(Math.random() * randomArray.length);
-					timesUp1 = true;
-					
-					choice1 = randomArray[randomChoice1];
+				if (counter2 === 0) {
+		
+					//var randomChoice2 = Math.floor(Math.random() * randomArray.length);
+					timesUp2 = true;
+					choice2 = randomArray[1];
 
 					disableSpace = false;
-	
 					context.font = "30px verdana";
 					context.fillText("PRESS SPACE TO ADVANCE",35,470);
 				}
 			}
-		}
-	}
-	
-	
-	if (page === 6) {
-	
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"ROY\"",140,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 7) {
-	
-		roy.x += roy.vx;
-    
-		if (royMove === true) {
-			roy.sourceX += 110;
 		
-			if (roy.sourceX === 220) {
-				roy.sourceX = 0;
+			if (bubbleSequence <= 3) {
+				context.fillText("PRESS THE A KEY TO ADVANCE",35,470);
+				disableSpace = true;
 			}
 		}
-	
-		if (royMove === false) {
-			roy.sourceX = 0;
-		}
-	
-		dog.sourceX += 150;
-	
-		if (dog.sourceX === 300) {
-			dog.sourceX = 0;
-		}
-	
-		context.drawImage(streetImage,street.x,street.y,street.width,street.height);
-		context.drawImage(dogImage,dog.sourceX,dog.sourceY,dog.width,dog.height,dog.x,dog.y,dog.width,dog.height);
-		context.drawImage(royImage,roy.sourceX,roy.sourceY,roy.width,roy.height,roy.x,roy.y,roy.width,roy.height);
-	
-		if (bubbleSequence === 1) {
-			context.drawImage(streetBubble1Image,streetBubble1.x,streetBubble1.y,streetBubble1.width,streetBubble1.height);
-		}
-		if (bubbleSequence === 2) {
-			context.drawImage(streetBubble2Image,streetBubble2.x,streetBubble2.y,streetBubble2.width,streetBubble2.height);
-		}
-		if (bubbleSequence === 3) {
-			context.drawImage(streetBubble3Image,streetBubble3.x,streetBubble3.y,streetBubble3.width,streetBubble3.height);
-		}
-		if (bubbleSequence > 3) {
-			context.font = "30px verdana";
-			context.fillText("WHAT DO YOU DO NEXT?",560,50);
-			context.fillText("Press the S key to shoot the dog.",550,200);
-			context.fillText("Wait and let the dog escape.",550,300);
-	
-			beat.play();
+		
+		
+		if (page === 8) {
+			disableSpace = false;
 			context.font = "70px verdana";
-			context.fillText(counter2,740,400);
-	
-			if (timerPlay2 === true) {
-				countdown2();
-			}
-			if (counter2 === 0) {
-	
-				//var randomChoice2 = Math.floor(Math.random() * randomArray.length);
-				timesUp2 = true;
-				choice2 = randomArray[1];
-
-				disableSpace = false;
-				context.font = "30px verdana";
-				context.fillText("PRESS SPACE TO ADVANCE",35,470);
-			}
+			context.fillText("\"LISA\"",130,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
-	
-		if (bubbleSequence <= 3) {
-			context.fillText("PRESS THE A KEY TO ADVANCE",35,470);
+		
+		if (page === 9) {
+		
 			disableSpace = true;
-		}
-	}
-	
-	
-	if (page === 8) {
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"LISA\"",130,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 9) {
-	
-		disableSpace = true;
-		context.drawImage(officeImage,office.x,office.y,office.width,office.height);
-	
-		if (bubbleSequence <= 5) {
-			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-		}
-	
-		if (bubbleSequence === 1) {
-			context.drawImage(officeBubble1Image,officeBubble1.x,officeBubble1.y,officeBubble1.width,officeBubble1.height);
-		}
-		if (bubbleSequence === 2) {
-			context.drawImage(officeBubble2Image,officeBubble2.x,officeBubble2.y,officeBubble2.width,officeBubble2.height);
-		}
-		if (bubbleSequence === 3) {
-			context.drawImage(officeBubble3Image,officeBubble3.x,officeBubble3.y,officeBubble3.width,officeBubble3.height);
-		}
-		if (bubbleSequence === 4) {
-			context.drawImage(officeBubble4Image,officeBubble4.x,officeBubble4.y,officeBubble4.width,officeBubble4.height);
-		}
-		if (bubbleSequence === 5) {
-			context.drawImage(officeBubble5Image,officeBubble5.x,officeBubble5.y,officeBubble5.width,officeBubble5.height);
-		}
-		if (bubbleSequence > 5) {
-			context.font = "30px verdana";
-			context.fillText("WHAT DO YOU DO NEXT?",550,50);
-			context.fillText("Press Y to say the password.",550,200);
-			context.fillText("Press N to not say the password.",550,300);
-	
-			beat.play();
-			context.font = "70px verdana";
-			context.fillText(counter3,740,400);
-	
-			if (timerPlay3 === true) {
-				countdown3();
+			context.drawImage(officeImage,office.x,office.y,office.width,office.height);
+		
+			if (bubbleSequence <= 5) {
+				context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
 			}
-			if (counter3 === 0) {
-				var randomChoice3 = Math.floor(Math.random() * randomArray.length);
-				timesUp3 = true;
-				choice3 = randomArray[randomChoice3];
-
-				disableSpace = false;
+		
+			if (bubbleSequence === 1) {
+				context.drawImage(officeBubble1Image,officeBubble1.x,officeBubble1.y,officeBubble1.width,officeBubble1.height);
+			}
+			if (bubbleSequence === 2) {
+				context.drawImage(officeBubble2Image,officeBubble2.x,officeBubble2.y,officeBubble2.width,officeBubble2.height);
+			}
+			if (bubbleSequence === 3) {
+				context.drawImage(officeBubble3Image,officeBubble3.x,officeBubble3.y,officeBubble3.width,officeBubble3.height);
+			}
+			if (bubbleSequence === 4) {
+				context.drawImage(officeBubble4Image,officeBubble4.x,officeBubble4.y,officeBubble4.width,officeBubble4.height);
+			}
+			if (bubbleSequence === 5) {
+				context.drawImage(officeBubble5Image,officeBubble5.x,officeBubble5.y,officeBubble5.width,officeBubble5.height);
+			}
+			if (bubbleSequence > 5) {
 				context.font = "30px verdana";
-				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				context.fillText("WHAT DO YOU DO NEXT?",550,50);
+				context.fillText("Press Y to say the password.",550,200);
+				context.fillText("Press N to not say the password.",550,300);
+		
+				beat.play();
+				context.font = "70px verdana";
+				context.fillText(counter3,740,400);
+		
+				if (timerPlay3 === true) {
+					countdown3();
+				}
+				if (counter3 === 0) {
+					var randomChoice3 = Math.floor(Math.random() * randomArray.length);
+					timesUp3 = true;
+					choice3 = randomArray[randomChoice3];
+
+					disableSpace = false;
+					context.font = "30px verdana";
+					context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				}
 			}
 		}
-	}
-	
-	if (page === 10) {
 		
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"BOB\"",140,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 11) {
-	
-		disableSpace = true;
-		context.drawImage(apartmentImage,apartment.x,apartment.y,apartment.width,apartment.height);
-	
-		wife.sourceX += 80;
-	
-		if (wife.sourceX === 160) {
-	
-			wife.sourceX = 0;
-		}
-	
-		context.drawImage(bobImage,bob.x,bob.y,bob.width,bob.height);
-		context.drawImage(wifeImage,wife.sourceX,wife.sourceY,wife.width,wife.height,wife.x,wife.y,wife.width,wife.height);
-	
-		if (bubbleSequence === 1) {
-	
-			context.drawImage(apartmentBubble1Image,apartmentBubble1.x,apartmentBubble1.y,apartmentBubble1.width,apartmentBubble1.height);
-		}
-		
-		if (bubbleSequence === 2) {
-	
-			context.drawImage(apartmentBubble2Image,apartmentBubble2.x,apartmentBubble2.y,apartmentBubble2.width,apartmentBubble2.height);
-		}
-	
-		if (bubbleSequence > 2) {
-	
-			context.font = "30px verdana";
-			context.fillText("WHAT DO YOU DO NEXT?",550,50);
-			context.fillText("Press the E key to explain.",550,200);
-			context.fillText("Press the L key to leave forever.",550,300);
-	
-			beat.play();
-	
+		if (page === 10) {
+			
+			disableSpace = false;
 			context.font = "70px verdana";
-			context.fillText(counter4,740,400);
-	
-			if (timerPlay4 === true) {
-				countdown4();
+			context.fillText("\"BOB\"",140,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 11) {
+		
+			disableSpace = true;
+			context.drawImage(apartmentImage,apartment.x,apartment.y,apartment.width,apartment.height);
+		
+			wife.sourceX += 80;
+		
+			if (wife.sourceX === 160) {
+		
+				wife.sourceX = 0;
 			}
-			if (counter4 === 0) {
-				var randomChoice4 = Math.floor(Math.random() * randomArray.length);
-				timesUp4 = true;
-				choice4 = randomArray[randomChoice4];
-
-				disableSpace = false;
+		
+			context.drawImage(bobImage,bob.x,bob.y,bob.width,bob.height);
+			context.drawImage(wifeImage,wife.sourceX,wife.sourceY,wife.width,wife.height,wife.x,wife.y,wife.width,wife.height);
+		
+			if (bubbleSequence === 1) {
+		
+				context.drawImage(apartmentBubble1Image,apartmentBubble1.x,apartmentBubble1.y,apartmentBubble1.width,apartmentBubble1.height);
+			}
+			
+			if (bubbleSequence === 2) {
+		
+				context.drawImage(apartmentBubble2Image,apartmentBubble2.x,apartmentBubble2.y,apartmentBubble2.width,apartmentBubble2.height);
+			}
+		
+			if (bubbleSequence > 2) {
+		
 				context.font = "30px verdana";
-				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				context.fillText("WHAT DO YOU DO NEXT?",550,50);
+				context.fillText("Press the E key to explain.",550,200);
+				context.fillText("Press the L key to leave forever.",550,300);
+		
+				beat.play();
+		
+				context.font = "70px verdana";
+				context.fillText(counter4,740,400);
+		
+				if (timerPlay4 === true) {
+					countdown4();
+				}
+				if (counter4 === 0) {
+					var randomChoice4 = Math.floor(Math.random() * randomArray.length);
+					timesUp4 = true;
+					choice4 = randomArray[randomChoice4];
+
+					disableSpace = false;
+					context.font = "30px verdana";
+					context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				}
+			}
+		
+			if (bubbleSequence <= 2) {
+				context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
 			}
 		}
-	
-		if (bubbleSequence <= 2) {
-			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-		}
-	}
-	
-	if (page === 12) {
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"LEO\"",140,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 13) {
-	
-		disableSpace = true;
-		context.drawImage(mapImage,map.x,map.y,map.width,map.height);
-		context.drawImage(mapBubble1Image,mapBubble1.x,mapBubble1.y,mapBubble1.width,mapBubble1.height);
-		context.drawImage(mapBubble2Image,mapBubble2.x,mapBubble2.y,mapBubble2.width,mapBubble2.height);
-	
-		if (bubbleSequence === 1) {
 		
-			context.font = "30px verdana";
-			context.fillText("A sudden and horrible twist of fate has struck your family.",0,25);
-			context.fillText("Unfortunately, you cannot see both your mother and daughter",0,55);
-			context.fillText("as fate has decided for them to die on the same day.",0,85);
-		}
-		if (bubbleSequence >= 2) {
-		
-			context.font = "30px verdana";
-			context.fillText("WHAT DO YOU DO NEXT?",550,50);
-			context.fillText("Press M to visit your mother.",550,200);
-			context.fillText("Press D to stay with daughter.",550,300);
-		
-			beat.play();
+		if (page === 12) {
+			disableSpace = false;
 			context.font = "70px verdana";
-			context.fillText(counter5,740,400);
+			context.fillText("\"LEO\"",140,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
 		
-			if (timerPlay5 === true) {
+		if (page === 13) {
 		
-				countdown5();
-			}
-			if (counter5 === 0) {
+			disableSpace = true;
+			context.drawImage(mapImage,map.x,map.y,map.width,map.height);
+			context.drawImage(mapBubble1Image,mapBubble1.x,mapBubble1.y,mapBubble1.width,mapBubble1.height);
+			context.drawImage(mapBubble2Image,mapBubble2.x,mapBubble2.y,mapBubble2.width,mapBubble2.height);
 		
-				var randomChoice5 = Math.floor(Math.random() * randomArray.length);
-				timesUp5 = true;
-				choice5 = randomArray[randomChoice5];
-
-				disableSpace = false;
+			if (bubbleSequence === 1) {
+			
 				context.font = "30px verdana";
-				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				context.fillText("A sudden and horrible twist of fate has struck your family.",0,25);
+				context.fillText("Unfortunately, you cannot see both your mother and daughter",0,55);
+				context.fillText("as fate has decided for them to die on the same day.",0,85);
+			}
+			if (bubbleSequence >= 2) {
+			
+				context.font = "30px verdana";
+				context.fillText("WHAT DO YOU DO NEXT?",550,50);
+				context.fillText("Press M to visit your mother.",550,200);
+				context.fillText("Press D to stay with daughter.",550,300);
+			
+				beat.play();
+				context.font = "70px verdana";
+				context.fillText(counter5,740,400);
+			
+				if (timerPlay5 === true) {
+			
+					countdown5();
+				}
+				if (counter5 === 0) {
+			
+					var randomChoice5 = Math.floor(Math.random() * randomArray.length);
+					timesUp5 = true;
+					choice5 = randomArray[randomChoice5];
+
+					disableSpace = false;
+					context.font = "30px verdana";
+					context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				}
+			}
+			if (bubbleSequence <= 1) {
+			
+				context.font = "30px verdana";
+				context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
 			}
 		}
-		if (bubbleSequence <= 1) {
 		
-			context.font = "30px verdana";
-			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-		}
-	}
-	
-	if (page === 14) {
-	
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"CAROL\"",100,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-
-	if (page === 15) {
-	
-		disableSpace = true;
-		context.drawImage(shedImage,shed.x,shed.y,shed.width,shed.height);
-	
-		if (bubbleSequence === 1) {
-			context.drawImage(shedBubble1Image,shedBubble1.x,shedBubble1.y,shedBubble1.width,shedBubble1.height);
-		}
-		if (bubbleSequence === 2) {
-			context.drawImage(shedBubble2Image,shedBubble2.x,shedBubble2.y,shedBubble2.width,shedBubble2.height);
-		}
-		if (bubbleSequence === 3) {
-			context.drawImage(shedBubble3Image,shedBubble3.x,shedBubble3.y,shedBubble3.width,shedBubble3.height);
-		}
-		if (bubbleSequence > 3) {
-			context.font = "30px verdana";
-			context.fillText("WHAT DO YOU DO NEXT?",550,50);
-			context.fillText("Press the E key to enter shed.",550,200);
-			context.fillText("Press the W key to walk away.",550,300);
-
-			beat.play();
+		if (page === 14) {
+		
+			disableSpace = false;
 			context.font = "70px verdana";
-			context.fillText(counter6,740,400);
-		
-			if (timerPlay6 === true) {
-				countdown6();
-			}
-			if (counter6 === 0) {
-				var randomChoice6 = Math.floor(Math.random() * randomArray.length);
-				timesUp6 = true;
-				choice6 = randomArray[randomChoice6];
+			context.fillText("\"CAROL\"",100,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
 
-				disableSpace = false;
+		if (page === 15) {
+		
+			disableSpace = true;
+			context.drawImage(shedImage,shed.x,shed.y,shed.width,shed.height);
+		
+			if (bubbleSequence === 1) {
+				context.drawImage(shedBubble1Image,shedBubble1.x,shedBubble1.y,shedBubble1.width,shedBubble1.height);
+			}
+			if (bubbleSequence === 2) {
+				context.drawImage(shedBubble2Image,shedBubble2.x,shedBubble2.y,shedBubble2.width,shedBubble2.height);
+			}
+			if (bubbleSequence === 3) {
+				context.drawImage(shedBubble3Image,shedBubble3.x,shedBubble3.y,shedBubble3.width,shedBubble3.height);
+			}
+			if (bubbleSequence > 3) {
 				context.font = "30px verdana";
-				context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				context.fillText("WHAT DO YOU DO NEXT?",550,50);
+				context.fillText("Press the E key to enter shed.",550,200);
+				context.fillText("Press the W key to walk away.",550,300);
+
+				beat.play();
+				context.font = "70px verdana";
+				context.fillText(counter6,740,400);
+			
+				if (timerPlay6 === true) {
+					countdown6();
+				}
+				if (counter6 === 0) {
+					var randomChoice6 = Math.floor(Math.random() * randomArray.length);
+					timesUp6 = true;
+					choice6 = randomArray[randomChoice6];
+
+					disableSpace = false;
+					context.font = "30px verdana";
+					context.fillText("PRESS SPACE TO ADVANCE",35,550);
+				}
+			}
+		
+			if (bubbleSequence <= 3) {
+				context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
+			}
+		
+			context.drawImage(carolImage,carol.sourceX,carol.sourceY,carol.width,carol.height,carol.x,carol.y,carol.width,carol.height);
+		}
+		
+		if (page === 16) {
+			
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("CONCLUSIONS",30,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",75,430);
+		}
+
+		if (page === 17) {
+			
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"CHUCK\"",100,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 18) {
+		
+			context.drawImage(chuckTitleImage,chuckTitle.x,chuckTitle.y,chuckTitle.width,chuckTitle.height);
+		
+			if (choice1 === "A" && choice6 === "A") {
+				context.drawImage(chuckChoice2Image,chuckChoice2.x,chuckChoice2.y,chuckChoice2.width,chuckChoice2.height);
+			}
+			if (choice1 === "A" && choice6 === "B") {
+				context.drawImage(chuckChoice1Image,chuckChoice1.x,chuckChoice1.y,chuckChoice1.width,chuckChoice1.height);
+			}
+			if (choice1 === "B" && choice4 === "B") {
+				context.drawImage(chuckChoice3Image,chuckChoice3.x,chuckChoice3.y,chuckChoice3.width,chuckChoice3.height);
+			}
+			if (choice1 === "B" && choice4 === "A") {
+				context.drawImage(chuckChoice4Image,chuckChoice4.x,chuckChoice4.y,chuckChoice4.width,chuckChoice4.height);
+			}
+		}	
+
+		if (page === 19) {
+		
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"ROY\"",140,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 20) {
+		
+			context.drawImage(royTitleImage,royTitle.x,royTitle.y,royTitle.width,royTitle.height);
+		
+			if (choice2 === "A") {
+				context.drawImage(royChoice1Image,royChoice1.x,royChoice1.y,royChoice1.width,royChoice1.height);
+			}
+			if (choice2 === "B" && choice6 === "A") {
+				context.drawImage(royChoice2Image,royChoice2.x,royChoice2.y,royChoice2.width,royChoice2.height);
+			}
+			if (choice2 === "B" && choice6 === "B") {
+				context.drawImage(royChoice3Image,royChoice3.x,royChoice3.y,royChoice3.width,royChoice3.height);
 			}
 		}
-	
-		if (bubbleSequence <= 3) {
-			context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
-		}
-	
-		context.drawImage(carolImage,carol.sourceX,carol.sourceY,carol.width,carol.height,carol.x,carol.y,carol.width,carol.height);
-	}
-	
-	if (page === 16) {
 		
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("CONCLUSIONS",30,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",75,430);
-	}
+		if (page === 21) {
+			
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"LISA\"",130,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		if (page === 22) {
+			
+			context.drawImage(lisaTitleImage,lisaTitle.x,lisaTitle.y,lisaTitle.width,lisaTitle.height);
+		
+			if (choice3 === "A" && choice6 === "B") {
+				context.drawImage(lisaChoice1Image,lisaChoice1.x,lisaChoice1.y,lisaChoice1.width,lisaChoice1.height);
+			}
+			if (choice3 === "A" && choice6 === "A") {
+				context.drawImage(lisaChoice2Image,lisaChoice2.x,lisaChoice2.y,lisaChoice2.width,lisaChoice2.height);
+			}
+			if (choice3 === "B" && choice5 === "A") {
+				context.drawImage(lisaChoice3Image,lisaChoice3.x,lisaChoice3.y,lisaChoice3.width,lisaChoice3.height);
+			}
+			if (choice3 === "B" && choice5 === "B") {
+				context.drawImage(lisaChoice4Image,lisaChoice4.x,lisaChoice4.y,lisaChoice4.width,lisaChoice4.height);
+			}
+		}
+		if (page === 23) {
+		
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"BOB\"",140,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		if (page === 24) {
 
-	if (page === 17) {
+			context.drawImage(bobTitleImage,bobTitle.x,bobTitle.y,bobTitle.width,bobTitle.height);
 		
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"CHUCK\"",100,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 18) {
-	
-		context.drawImage(chuckTitleImage,chuckTitle.x,chuckTitle.y,chuckTitle.width,chuckTitle.height);
-	
-		if (choice1 === "A" && choice6 === "A") {
-			context.drawImage(chuckChoice2Image,chuckChoice2.x,chuckChoice2.y,chuckChoice2.width,chuckChoice2.height);
+			if (choice4 === "B" && choice1 === "B") {
+				context.drawImage(bobChoice1Image,bobChoice1.x,bobChoice1.y,bobChoice1.width,bobChoice1.height);
+			}
+			if (choice4 === "B" && choice1 === "A") {
+				context.drawImage(bobChoice2Image,bobChoice2.x,bobChoice2.y,bobChoice2.width,bobChoice2.height);
+			}
+			if (choice4 === "A") {
+				context.drawImage(bobChoice3Image,bobChoice3.x,bobChoice3.y,bobChoice3.width,bobChoice3.height);
+			}	
 		}
-		if (choice1 === "A" && choice6 === "B") {
-			context.drawImage(chuckChoice1Image,chuckChoice1.x,chuckChoice1.y,chuckChoice1.width,chuckChoice1.height);
+		
+		if (page === 25) {
+		
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"LEO\"",140,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
-		if (choice1 === "B" && choice4 === "B") {
-			context.drawImage(chuckChoice3Image,chuckChoice3.x,chuckChoice3.y,chuckChoice3.width,chuckChoice3.height);
-		}
-		if (choice1 === "B" && choice4 === "A") {
-			context.drawImage(chuckChoice4Image,chuckChoice4.x,chuckChoice4.y,chuckChoice4.width,chuckChoice4.height);
-		}
+		
+		if (page === 26) {
 
-	if (page === 19) {
-	
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"ROY\"",140,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	
-	if (page === 20) {
-	
-		context.drawImage(royTitleImage,royTitle.x,royTitle.y,royTitle.width,royTitle.height);
-	
-		if (choice2 === "A") {
-			context.drawImage(royChoice1Image,royChoice1.x,royChoice1.y,royChoice1.width,royChoice1.height);
-		}
-		if (choice2 === "B" && choice6 === "A") {
-			context.drawImage(royChoice2Image,royChoice2.x,royChoice2.y,royChoice2.width,royChoice2.height);
-		}
-		if (choice2 === "B" && choice6 === "B") {
-			context.drawImage(royChoice3Image,royChoice3.x,royChoice3.y,royChoice3.width,royChoice3.height);
-		}
-	}
-	
-	if (page === 21) {
+			context.drawImage(leoTitleImage,leoTitle.x,leoTitle.y,leoTitle.width,leoTitle.height);
 		
-		disableSpace = false;
-		context.font = "70px verdana";
-		context.fillText("\"LISA\"",130,230);
-		context.font = "30px verdana";
-		context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	if(page === 22)
-	{
-	//context.drawImage(lisaPicImage,lisaPic.x,lisaPic.y,lisaPic.width,lisaPic.height);
-	context.drawImage(lisaTitleImage,lisaTitle.x,lisaTitle.y,lisaTitle.width,lisaTitle.height);
-	
-	if (choice3 === "A" && choice6 === "B")
-	{
-	context.drawImage(lisaChoice1Image,lisaChoice1.x,lisaChoice1.y,lisaChoice1.width,lisaChoice1.height);
-	}
-	if(choice3 === "A" && choice6 === "A")
-	{
-	context.drawImage(lisaChoice2Image,lisaChoice2.x,lisaChoice2.y,lisaChoice2.width,lisaChoice2.height);
-	}
-	if(choice3 === "B" && choice5 === "A")
-	{
-	context.drawImage(lisaChoice3Image,lisaChoice3.x,lisaChoice3.y,lisaChoice3.width,lisaChoice3.height);
-	}
-	if(choice3 === "B" && choice5 === "B")
-	{
-	context.drawImage(lisaChoice4Image,lisaChoice4.x,lisaChoice4.y,lisaChoice4.width,lisaChoice4.height);
-	}
-	}
-	if(page === 23)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"BOB\"",140,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	if(page === 24)
-	{
-	//context.drawImage(bobPicImage,bobPic.x,bobPic.y,bobPic.width,bobPic.height);
-	context.drawImage(bobTitleImage,bobTitle.x,bobTitle.y,bobTitle.width,bobTitle.height);
-	
-	if (choice4 === "B" && choice1 === "B")
-	{
-	context.drawImage(bobChoice1Image,bobChoice1.x,bobChoice1.y,bobChoice1.width,bobChoice1.height);
-	}
-	if(choice4 === "B" && choice1 === "A")
-	{
-	context.drawImage(bobChoice2Image,bobChoice2.x,bobChoice2.y,bobChoice2.width,bobChoice2.height);
-	}
-	if(choice4 === "A")
-	{
-	context.drawImage(bobChoice3Image,bobChoice3.x,bobChoice3.y,bobChoice3.width,bobChoice3.height);
-	}
-	
-	}
-	if(page === 25)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"LEO\"",140,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	if(page === 26)
-	{
-	//context.drawImage(leoPicImage,leoPic.x,leoPic.y,leoPic.width,leoPic.height);
-	context.drawImage(leoTitleImage,leoTitle.x,leoTitle.y,leoTitle.width,leoTitle.height);
-	
-	if (choice5 === "B" && choice4 === "A")
-	{
-	context.drawImage(leoChoice1Image,leoChoice1.x,leoChoice1.y,leoChoice1.width,leoChoice1.height);
-	}
-	if(choice5 === "B" && choice4 === "B")
-	{
-	context.drawImage(leoChoice4Image,leoChoice4.x,leoChoice4.y,leoChoice4.width,leoChoice4.height);
-	}
-	if(choice5 === "A" && choice3 === "B")
-	{
-	context.drawImage(leoChoice2Image,leoChoice2.x,leoChoice2.y,leoChoice2.width,leoChoice2.height);
-	}
-	if(choice5 === "A" && choice3 === "A")
-	{
-	context.drawImage(leoChoice3Image,leoChoice3.x,leoChoice3.y,leoChoice3.width,leoChoice3.height);
+			if (choice5 === "B" && choice4 === "A") {
+				context.drawImage(leoChoice1Image,leoChoice1.x,leoChoice1.y,leoChoice1.width,leoChoice1.height);
+			}
+			if (choice5 === "B" && choice4 === "B") {
+				context.drawImage(leoChoice4Image,leoChoice4.x,leoChoice4.y,leoChoice4.width,leoChoice4.height);
+			}
+			if (choice5 === "A" && choice3 === "B") {
+				context.drawImage(leoChoice2Image,leoChoice2.x,leoChoice2.y,leoChoice2.width,leoChoice2.height);
+			}
+			if (choice5 === "A" && choice3 === "A") {
+				context.drawImage(leoChoice3Image,leoChoice3.x,leoChoice3.y,leoChoice3.width,leoChoice3.height);
+			}
+		}
+		
+		if (page === 27) {
+			
+			disableSpace = false;
+			context.font = "70px verdana";
+			context.fillText("\"CAROL\"",100,230);
+			context.font = "30px verdana";
+			context.fillText("PRESS SPACE TO ADVANCE",35,430);
+		}
+		
+		if (page === 28) {
+
+			context.drawImage(carolTitleImage,carolTitle.x,carolTitle.y,carolTitle.width,carolTitle.height);
+		
+			if (choice6 === "A" && choice1 === "A") {
+				context.drawImage(carolChoice1Image,carolChoice1.x,carolChoice1.y,carolChoice1.width,carolChoice1.height);
+			}
+			if (choice6 === "A" && choice1 === "B") {
+				context.drawImage(carolChoice2Image,carolChoice2.x,carolChoice2.y,carolChoice2.width,carolChoice2.height);
+			}
+			if (choice6 === "B" && choice3 === "A") {
+				context.drawImage(carolChoice3Image,carolChoice3.x,carolChoice3.y,carolChoice3.width,carolChoice3.height);
+			}
+			if (choice6 === "B" && choice3 === "B") {
+				context.drawImage(carolChoice5Image,carolChoice5.x,carolChoice5.y,carolChoice5.width,carolChoice5.height);
+			}
+			if (choice6 === "B" && choice2 === "B") {
+				context.drawImage(carolChoice4Image,carolChoice4.x,carolChoice4.y,carolChoice4.width,carolChoice4.height);
+			}
+			if (choice6 === "B" && choice2 === "A") {
+				context.drawImage(carolChoice5Image,carolChoice5.x,carolChoice5.y,carolChoice5.width,carolChoice5.height);
+			}
+		}
+		
+		if (page === 29) {
+		
+			disableSpace = true;
+			context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
+			context.font = "40px verdana";
+			context.fillStyle = "000000";
+		
+			context.fillText("CEDARVILLE",197,70);
+			context.font = "30px verdana";
+			context.fillText("THE END",35,430);
+		}
 	}
 	
-	}
-	if(page === 27)
-	{
-	disableSpace = false;
-	context.font = "70px verdana";
-	context.fillText("\"CAROL\"",100,230);
-	context.font = "30px verdana";
-	context.fillText("PRESS SPACE TO ADVANCE",35,430);
-	}
-	if(page === 28)
-	{
-	//context.drawImage(carolPicImage,carolPic.x,carolPic.y,carolPic.width,carolPic.height);
-	context.drawImage(carolTitleImage,carolTitle.x,carolTitle.y,carolTitle.width,carolTitle.height);
-	
-	if (choice6 === "A" && choice1 === "A")
-	{
-	context.drawImage(carolChoice1Image,carolChoice1.x,carolChoice1.y,carolChoice1.width,carolChoice1.height);
-	}
-	if(choice6 === "A" && choice1 === "B")
-	{
-	context.drawImage(carolChoice2Image,carolChoice2.x,carolChoice2.y,carolChoice2.width,carolChoice2.height);
-	}
-	if(choice6 === "B" && choice3 === "A")
-	{
-	context.drawImage(carolChoice3Image,carolChoice3.x,carolChoice3.y,carolChoice3.width,carolChoice3.height);
-	}
-	if(choice6 === "B" && choice3 === "B")
-	{
-	context.drawImage(carolChoice5Image,carolChoice5.x,carolChoice5.y,carolChoice5.width,carolChoice5.height);
-	}
-	if(choice6 === "B" && choice2 === "B")
-	{
-	context.drawImage(carolChoice4Image,carolChoice4.x,carolChoice4.y,carolChoice4.width,carolChoice4.height);
-	}
-	if(choice6 === "B" && choice2 === "A")
-	{
-	context.drawImage(carolChoice5Image,carolChoice5.x,carolChoice5.y,carolChoice5.width,carolChoice5.height);
-	}
-	
-	}
-	if(page === 29)
-	{
-	
-	disableSpace = true;
-	context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
-		context.font = "40px verdana";
-	context.fillStyle = "000000";
-	
-	context.fillText("CEDARVILLE",197,70);
-	
-	context.font = "30px verdana";
-	context.fillText("THE END",35,430);
-	}
-	
-}
+	update();
