@@ -6,6 +6,13 @@
 
         var GAME = {
 		
+			WIDTH: 1050, 
+			HEIGHT:  650, 
+			RATIO:  0,
+			scale: 1,
+			offset: {top: 0, left: 0},
+			currentWidth:  0,
+			currentHeight:  0,
 			GAMESTATE: "INTRO",
 			currentPage: 1,
 			pages: [],
@@ -82,10 +89,51 @@
 			setFont: function(value) {
 				
 				return context.font = value +"px verdana";
-			}
-						
-		};
+			},
+			init: function() {
+			
+				GAME.RATIO = GAME.WIDTH / GAME.HEIGHT;
+				GAME.currentWidth = GAME.WIDTH;
+				GAME.currentHeight = GAME.HEIGHT;
+				canvas.width = GAME.WIDTH;
+				canvas.height = GAME.HEIGHT;
+			},
+			resizeScreen: function() {
 
+				GAME.currentHeight = window.innerHeight;
+				GAME.currentWidth = GAME.currentHeight * GAME.RATIO;
+			
+				if (GAME.android || GAME.ios) {
+					document.body.style.height = (window.innerHeight + 50) + 'px';
+				}
+				
+				canvas.style.width = GAME.currentWidth + 'px';
+				canvas.style.height = GAME.currentHeight + 'px';
+				
+				if (window.innerHeight > 400 && GAME.android) {
+					canvas.style.width = (window.innerWidth / 1) + 'px';
+					canvas.style.height = (window.innerHeight / 1)+ 'px';
+				}
+				if (canvas.style.width === 962 + "px" && GAME.android) {
+					canvas.style.width = (window.innerWidth / 2.522) + 'px';
+				}
+				
+				GAME.scale = GAME.currentWidth / GAME.WIDTH;
+				
+				window.setTimeout(function() {
+						window.scrollTo(0,1);
+				}, 1);
+			},			
+		};
+		
+		
+		GAME.ua = navigator.userAgent.toLowerCase();
+		GAME.android = GAME.ua.indexOf('android') > -1 ? true : false;
+		GAME.ios = ( GAME.ua.indexOf('iphone') > -1 || GAME.ua.indexOf('ipad') > -1  ) ? true : false;
+
+		window.addEventListener('load', GAME.init, false);
+		
+		
 		var cedarville = Object.create(spriteObject);
 		cedarville.x = 0;
 		cedarville.y = 0;
@@ -882,6 +930,7 @@
 		context.clearRect(0,0,canvas.width,canvas.height);
 		window.setTimeout(update,103);
 		checkCurrentPage();
+		GAME.resizeScreen();
 	}
 	
 	function checkCurrentPage() {
@@ -1055,13 +1104,13 @@
 				context.drawImage(streetBubble3Image,streetBubble3.x,streetBubble3.y,streetBubble3.width,streetBubble3.height);
 			}
 			if (bubbleSequence > 3) {
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("WHAT DO YOU DO NEXT?",560,50);
 				context.fillText("Press the S key to shoot the dog.",550,200);
 				context.fillText("Wait and let the dog escape.",550,300);
 		
 				beat.play();
-				context.font = "70px verdana";
+				GAME.setFont("70");
 				context.fillText(counter2,740,400);
 		
 				if (timerPlay2 === true) {
@@ -1073,7 +1122,7 @@
 					choice2 = randomArray[1];
 
 					disableSpace = false;
-					context.font = "30px verdana";
+					GAME.setFont("30");
 					context.fillText("PRESS SPACE TO ADVANCE",35,470);
 				}
 			}
@@ -1087,9 +1136,9 @@
 		
 		if (pageNumber === 8) {
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"LISA\"",130,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1118,13 +1167,13 @@
 				context.drawImage(officeBubble5Image,officeBubble5.x,officeBubble5.y,officeBubble5.width,officeBubble5.height);
 			}
 			if (bubbleSequence > 5) {
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("WHAT DO YOU DO NEXT?",550,50);
 				context.fillText("Press Y to say the password.",550,200);
 				context.fillText("Press N to not say the password.",550,300);
 		
 				beat.play();
-				context.font = "70px verdana";
+				GAME.setFont("70");
 				context.fillText(counter3,740,400);
 		
 				if (timerPlay3 === true) {
@@ -1136,7 +1185,7 @@
 					choice3 = randomArray[randomChoice3];
 
 					disableSpace = false;
-					context.font = "30px verdana";
+					GAME.setFont("30");
 					context.fillText("PRESS SPACE TO ADVANCE",35,550);
 				}
 			}
@@ -1145,9 +1194,9 @@
 		if (pageNumber === 10) {
 			
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"BOB\"",140,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1178,14 +1227,14 @@
 		
 			if (bubbleSequence > 2) {
 		
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("WHAT DO YOU DO NEXT?",550,50);
 				context.fillText("Press the E key to explain.",550,200);
 				context.fillText("Press the L key to leave forever.",550,300);
 		
 				beat.play();
 		
-				context.font = "70px verdana";
+				GAME.setFont("70");
 				context.fillText(counter4,740,400);
 		
 				if (timerPlay4 === true) {
@@ -1197,7 +1246,7 @@
 					choice4 = randomArray[randomChoice4];
 
 					disableSpace = false;
-					context.font = "30px verdana";
+					GAME.setFont("30");
 					context.fillText("PRESS SPACE TO ADVANCE",35,550);
 				}
 			}
@@ -1209,9 +1258,9 @@
 		
 		if (pageNumber === 12) {
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"LEO\"",140,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1224,20 +1273,20 @@
 		
 			if (bubbleSequence === 1) {
 			
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("A sudden and horrible twist of fate has struck your family.",0,25);
 				context.fillText("Unfortunately, you cannot see both your mother and daughter",0,55);
 				context.fillText("as fate has decided for them to die on the same day.",0,85);
 			}
 			if (bubbleSequence >= 2) {
 			
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("WHAT DO YOU DO NEXT?",550,50);
 				context.fillText("Press M to visit your mother.",550,200);
 				context.fillText("Press D to stay with daughter.",550,300);
 			
 				beat.play();
-				context.font = "70px verdana";
+				GAME.setFont("70");
 				context.fillText(counter5,740,400);
 			
 				if (timerPlay5 === true) {
@@ -1251,13 +1300,13 @@
 					choice5 = randomArray[randomChoice5];
 
 					disableSpace = false;
-					context.font = "30px verdana";
+					GAME.setFont("30");
 					context.fillText("PRESS SPACE TO ADVANCE",35,550);
 				}
 			}
 			if (bubbleSequence <= 1) {
 			
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("PRESS THE A KEY TO ADVANCE",35,530);
 			}
 		}
@@ -1265,9 +1314,9 @@
 		if (pageNumber === 14) {
 		
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"CAROL\"",100,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 
@@ -1286,13 +1335,13 @@
 				context.drawImage(shedBubble3Image,shedBubble3.x,shedBubble3.y,shedBubble3.width,shedBubble3.height);
 			}
 			if (bubbleSequence > 3) {
-				context.font = "30px verdana";
+				GAME.setFont("30");
 				context.fillText("WHAT DO YOU DO NEXT?",550,50);
 				context.fillText("Press the E key to enter shed.",550,200);
 				context.fillText("Press the W key to walk away.",550,300);
 
 				beat.play();
-				context.font = "70px verdana";
+				GAME.setFont("70");
 				context.fillText(counter6,740,400);
 			
 				if (timerPlay6 === true) {
@@ -1304,7 +1353,7 @@
 					choice6 = randomArray[randomChoice6];
 
 					disableSpace = false;
-					context.font = "30px verdana";
+					GAME.setFont("30");
 					context.fillText("PRESS SPACE TO ADVANCE",35,550);
 				}
 			}
@@ -1319,18 +1368,18 @@
 		if (pageNumber === 16) {
 			
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("CONCLUSIONS",30,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",75,430);
 		}
 
 		if (pageNumber === 17) {
 			
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"CHUCK\"",100,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1355,9 +1404,9 @@
 		if (pageNumber === 19) {
 		
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"ROY\"",140,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1379,9 +1428,9 @@
 		if (pageNumber === 21) {
 			
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"LISA\"",130,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		if (pageNumber === 22) {
@@ -1404,9 +1453,9 @@
 		if (pageNumber === 23) {
 		
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"BOB\"",140,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		if (pageNumber === 24) {
@@ -1427,9 +1476,9 @@
 		if (pageNumber === 25) {
 		
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"LEO\"",140,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1454,9 +1503,9 @@
 		if (pageNumber === 27) {
 			
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"CAROL\"",100,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
