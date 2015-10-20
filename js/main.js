@@ -6,6 +6,7 @@
 
         var GAME = {
 		
+			GAMESTATE: "INTRO",
 			currentPage: 1,
 			pages: [],
 			bubbleSequence: 1,
@@ -77,10 +78,13 @@
 					image.src = arr[i];
 					GAME.pages.push(image);
 				}
+			},
+			setFont: function(value) {
+				
+				return context.font = value +"px verdana";
 			}
 						
 		};
-
 
 		var cedarville = Object.create(spriteObject);
 		cedarville.x = 0;
@@ -695,110 +699,96 @@
 
 		var carolPicImage = new Image();
 		carolPicImage.src = "images/carolPic.png";
-
-
+		
 
 	function onKeyDown(event) {
+		
+		event.preventDefault();
 	
 		if (event.keyCode === 32 && !GAME.disableSpace) {
 	
-			event.preventDefault();
 			GAME.currentPage++;
 			GAME.bubbleSequence = 1;
 		}
 	
 		if (event.keyCode === 37) {
 			
-			event.preventDefault();
 			royMove = true;
 			roy.vx = -8;
 		}
 	
 		if (event.keyCode === 39) {
-			
-			event.preventDefault();
+
 			royMove = true;
 			roy.vx = 8;
 		}
 		if (event.keyCode === 51 && currentPage === 5 && bubbleSequence > 3 && !timesUp1) {
-			
-			event.preventDefault();
+	
 			choice1 = "A";
 			currentPage = 6;
 		}
 	
 		if (event.keyCode === 52 && currentPage === 5 && bubbleSequence > 3 && !timesUp1) {
-	
-			event.preventDefault();
+
 			choice1 = "B";
 			currentPage = 6;
 		}
 	
 		if (event.keyCode === 83 && currentPage === 7 && bubbleSequence > 3 && !timesUp2) {
 	
-			event.preventDefault();
 			choice2 = "A";
 			currentPage = 8;
 		}
 	
 		if (event.keyCode === 89 && currentPage === 9 && bubbleSequence > 5 && !timesUp3) {
 	
-			event.preventDefault();
 			choice3 = "A";
 			currentPage = 10;
 		}
 	
 		if (event.keyCode === 78 && currentPage === 9 && bubbleSequence > 5 && !timesUp3) {
-		
-			event.preventDefault();
+	
 			choice3 = "B";
 			currentPage = 10;
 		}
 	
 		if (event.keyCode === 69 && currentPage === 11 && bubbleSequence > 2 && !timesUp4) {
 	
-			event.preventDefault();
 			choice4 = "A";
 			currentPage = 12;
 		}
 	
 		if (event.keyCode === 76 && currentPage === 11 && bubbleSequence > 2 && !timesUp4) {
-	
-			event.preventDefault();
+
 			choice4 = "B";
 			currentPage = 12;
 		}
 	
 		if (event.keyCode === 77 && currentPage === 13 && !timesUp5) {
 		
-			event.preventDefault();
 			choice5 = "A";
 			currentPage = 14;
 		}
 	
 		if (event.keyCode === 68 && currentPage === 13 && !timesUp5) {
 	
-			event.preventDefault();
 			choice5 = "B";
 			currentPage = 14;
 		}
 		if (event.keyCode === 69 && currentPage === 15 && bubbleSequence > 3 && !timesUp6) {
-	
-			event.preventDefault();
+
 			choice6 = "A";
 			currentPage = 16;
 		}
 	
 		if (event.keyCode === 87 && currentPage === 15 && bubbleSequence > 3 && !timesUp6) {
-	
-			event.preventDefault();
+
 			choice6 = "B";
 			currentPage = 16;
 		}
 
 		if (event.keyCode === 65) {
-	
-			event.preventDefault();
+
 			bubbleSequence++;
 		}
 	}
@@ -817,7 +807,6 @@
 
 		}
 	}
-
 
 	function countdown1() {
 	
@@ -915,14 +904,14 @@
 		
 			context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
 		
-			context.font = "40px verdana";
+			GAME.setFont("40");
 			context.fillStyle = "000000";
 			context.fillText("CEDARVILLE",197,70);
 		
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO START",35,430);
 		
-			context.font = "20px verdana";
+			GAME.setFont("20");
 			context.fillText("A game by Warm Sea Orchard",450,150);
 			context.fillText("code/artwork/story by Ben Savage",450,250);
 			context.fillText("Made for Ludum Dare 27",450,350);
@@ -932,7 +921,7 @@
 		
 			context.drawImage(instructions1Image,instructions1.x,instructions1.y,instructions1.width,instructions1.height);
 		
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 			
@@ -940,15 +929,15 @@
 		
 			context.drawImage(instructions2Image,instructions2.x,instructions2.y,instructions2.width,instructions2.height);
 		
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
 		if (pageNumber === 4) {
 		
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"CHUCK\"",100,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -991,17 +980,17 @@
 				}
 				if (GAME.bubbleSequence > 3) {
 			
-					context.font = "30px verdana";
+					GAME.setFont("30");
 					context.fillText("WHAT DO YOU DO NEXT?",550,50);
 					context.fillText("Press 3 to stay for three nights.",550,200);
 					context.fillText("Press 4 to stay for four nights.",550,300);
 
 					beat.play();
 					
-					context.font = "70px verdana";
+					GAME.setFont("70");
 					context.fillText(counter1,740,400);
 		
-					if (timerPlay1 === true) {
+					if (timerPlay1) {
 						countdown1();
 					}
 					if (counter1 === 0) {
@@ -1013,7 +1002,7 @@
 
 						disableSpace = false;
 		
-						context.font = "30px verdana";
+						GAME.setFont("30");
 						context.fillText("PRESS SPACE TO ADVANCE",35,470);
 					}
 				}
@@ -1024,9 +1013,9 @@
 		if (pageNumber === 6) {
 		
 			disableSpace = false;
-			context.font = "70px verdana";
+			GAME.setFont("70");
 			context.fillText("\"ROY\"",140,230);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("PRESS SPACE TO ADVANCE",35,430);
 		}
 		
@@ -1080,7 +1069,6 @@
 				}
 				if (counter2 === 0) {
 		
-					//var randomChoice2 = Math.floor(Math.random() * randomArray.length);
 					timesUp2 = true;
 					choice2 = randomArray[1];
 
@@ -1500,11 +1488,11 @@
 		
 			disableSpace = true;
 			context.drawImage(cedarvilleImage,cedarville.x,cedarville.y,cedarville.width,cedarville.height);
-			context.font = "40px verdana";
+			GAME.setFont("40");
 			context.fillStyle = "000000";
 		
 			context.fillText("CEDARVILLE",197,70);
-			context.font = "30px verdana";
+			GAME.setFont("30");
 			context.fillText("THE END",35,430);
 		}
 		
